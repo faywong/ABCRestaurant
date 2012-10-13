@@ -1,0 +1,7 @@
+*.class
+*.dex
+*.a
+*.ko
+*.o
+*.O
+*.bin

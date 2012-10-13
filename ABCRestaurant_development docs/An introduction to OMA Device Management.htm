@@ -1,0 +1,4946 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0059)https://www.ibm.com/developerworks/wireless/library/wi-oma/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>An introduction to OMA Device Management</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 &quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="en">
+<meta name="IBM.Country" content="ZZ">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003,1004">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="Device management pertains to configurations, provisioning client applications, and detecting problems of remote devices from servers. With the dramatic increase in available devices and vendors, various proprietary device management implementations have evolved, and as a result, threaten the interoperability of devices and servers. To avoid this, the OMA Device Management (OMA DM) specification aims to unify them. Learn the concepts of OMA DM, based on the latest version 1.2, and use IBM WebSphere Everyplace Device Manager (Device Manager) 6.0 to illustrate OMA DM server implementation.">
+<meta name="Description" content="Device management pertains to configurations, provisioning client applications, and detecting problems of remote devices from servers. With the dramatic increase in available devices and vendors, various proprietary device management implementations have evolved, and as a result, threaten the interoperability of devices and servers. To avoid this, the OMA Device Management (OMA DM) specification aims to unify them. Learn the concepts of OMA DM, based on the latest version 1.2, and use IBM WebSphere Everyplace Device Manager (Device Manager) 6.0 to illustrate OMA DM server implementation.">
+<meta name="Keywords" content="device management, OMA DM, WEDM, Open Mobile Alliance, SyncML, IBM WebSphere Everyplace Device Manager, tttarca, dddwca">
+<meta name="DC.Date" scheme="iso8601" content="2006-10-31">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT200">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCARCZZ">
+<meta name="DC.Rights" content="© Copyright IBM Corporation 2006">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2006-10-31">
+<meta name="title" content="An introduction to OMA Device Management">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="./An introduction to OMA Device Management_files/all.css" media="all" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/screen-uas.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/screen-fonts.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/handheld.css" media="handheld" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/print.css" media="print" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/overlay.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+
+<!-- dW-specific CSS -->
+<link href="./An introduction to OMA Device Management_files/dw-screen.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/dw-screen-comments-ratings-signin.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="./An introduction to OMA Device Management_files/jquery.cluetip.css" media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<!-- xM Masthead/Footer -->
+<link href="./An introduction to OMA Device Management_files/dw-mf.css" rel="stylesheet" title="www" type="text/css">
+<script src="./An introduction to OMA Device Management_files/ibmcommon.js" type="text/javascript">//</script><link rel="search" type="application/opensearchdescription+xml" href="http://www.ibm.com/search/opensearch/description.xml" title="IBM Search">
+<script src="./An introduction to OMA Device Management_files/dynamicnav.js" type="text/javascript">//</script>
+
+<!-- dW functional JS -->
+<script language="JavaScript" src="./An introduction to OMA Device Management_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+<script language="JavaScript" src="./An introduction to OMA Device Management_files/showrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="./An introduction to OMA Device Management_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="./An introduction to OMA Device Management_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="./An introduction to OMA Device Management_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('architectureart');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+<!-- Include file support -->
+<script language="JavaScript" type="text/javascript">
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+				ibmCommon.initShowHide(jQuery(d).children()[0]);			
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</script>
+<script id="mhMenu" type="text/javascript" src="./An introduction to OMA Device Management_files/usen-utf8.js" charset="UTF-8"></script><script id="wiBundle" type="text/javascript" src="./An introduction to OMA Device Management_files/Controller" charset="UTF-8"></script></head>
+
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead-dw">
+  
+    <!-- TOP ROW -->    
+    <div id="dw-masthead-top-row">
+		<ul id="ibm-unav-home-dw">
+			<li id="ibm-logo">
+				<a href="http://www.ibm.com/us/en/"><img src="./An introduction to OMA Device Management_files/ibm-smlogo.gif" width="44" height="16" alt="IBM®"></a>
+			</li>
+		</ul>
+        <ul id="ibm-mast-options-dw">
+		    <li id="dw-mast-top-0">
+				<a class="" href="https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&lang=en&d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F" title="">Sign in (or register)</a>
+			</li>
+		    <li id="dw-mast-top-1">
+				<a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#SELECTLANG">English</a><img class="dw-preload" src="./An introduction to OMA Device Management_files/arrow-down-active.gif" width="8" height="7" alt="">
+			</li>
+		    <li id="dw-mast-top-2" class="dw-mf-hide">
+				<a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">[userid] <img src="./An introduction to OMA Device Management_files/photo.do" alt="PHOTO" class="dw-mast-profimg" width="20" height="20"></a>
+			</li>
+		</ul>
+	</div>
+    
+    <!-- TOP ROW SLIDER -->
+    <div id="ibm-my-menu-dw">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+                <!-- Sign-in -->
+				<div class="dw-mast-columns">                
+					<div class="dw-mast-col-1-1">
+					    <div class="dw-mast-close">
+							<ul>
+								<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+							</ul>
+						</div>
+						<div id="dw-mast-sso">
+							<div id="dw-mast-sso-reg">
+								<p>If you don't have an IBM ID and password, <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d=&#39;+encodeURIComponent(location.href);})();">register here</a>.</p>
+							</div>
+							<div id="signin_error_mf" class="no-display"></div>
+							<div id="dw-mast-sso-form">
+								<form id="sForm_mf" action="" method="post" name="sForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-sso-id">
+										<label for="ibmid_mf">IBM ID:</label>
+										<!-- <label for="ibmid_mf"><img id="ibmid_img" alt="IBM ID" height="1" width="1" src="//dw1.s81c.com/i/c.gif" /></label> -->
+										<input id="ibmid_mf" type="text" value="" name="ibmid_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,&#39;mf&#39;);" class="">
+									</div>
+									<div id="dw-mast-sso-pw">
+										<label for="pw_mf">Password:</label>
+										<!-- <label for="pw_mf"><img id="pw_img" alt="Password" height="1" width="1" src="//dw1.s81c.com/i/c.gif" /></label> -->
+										<input id="pw_mf" type="password" value="" name="pw_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,&#39;mf&#39;);" class="">
+									</div>
+									<div id="dw-mast-sso-target">
+										<label for="AfterSignIn_mf">After sign in:</label>
+										<select id="AfterSignIn_mf" name="AfterSignIn_name_mf">
+											<option value="">Stay on the current page</option>
+											<option value="/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">My developerWorks profile</option>
+											<option value="/developerworks/mydeveloperworks/homepage?lang=en">My developerWorks home</option>
+										</select>
+									</div>
+									<div id="dw-mast-sso-terms">
+										<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn" name="ibm_submit_name_mf" value="Submit" onclick="signin(&#39;mf&#39;);return false;" type="button">
+									</div>
+								</form>
+							</div>
+							<div id="dw-mast-sso-update">
+								<ul>
+									<li><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></li>
+								</ul>
+								<ul class="dw-mf-pwupdate">
+									<li><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Den_US%26d%3D&#39;+encodeURIComponent(location.href);})();">Forgot your password?</a></li>
+									<li><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">Change your password</a></li>
+								</ul>
+							</div>
+							<div id="dw-mast-sso-text">
+								<p>The first time you sign into developerWorks, a <strong>profile</strong> is created for you.  This profile includes the first name, last name, and display name you identified when you registered with developerWorks.  <strong>Select information in your developerWorks profile is displayed to the public, but you may edit the information at any time.</strong>  Your first name, last name (unless you choose to hide them), and display name will accompany the content that you post.</p>
+								<p class="dw-mf-secure">All information submitted is secure.</p>
+							</div>
+						</div>
+                    
+						<div id="dw-mast-dname" class="dw-mf-hide">
+							<p>The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerworks.</p><p><strong>Please choose a display name between 3-31 characters</strong>.  Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+							<div id="signin_dname_error_mf" class="no-display"></div>
+							<div id="dw-mast-dname-form">
+								<form id="dForm_mf" action="" method="post" name="dForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-dname-mf">
+										<label for="dname_mf">Display name:</label>
+										<!-- <label for="dname_mf"><img id="ibmdname_img" alt="Display name" height="1" width="1" src="//dw1.s81c.com/i/c.gif" /></label> -->
+										<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" value="" type="text" onkeypress="handleEP(event,this.form,&#39;mf&#39;);">
+									</div>
+									<div id="dw-mast-dname-terms">
+										<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn" name="dname_submit_name_mf" value="Submit" onclick="signin(&#39;mf&#39;);return false;" type="button">
+									</div>
+								</form>								
+							</div>
+							<div id="dw-mast-dname-secure">
+								<p class="dw-mf-secure">All information submitted is secure.</p>
+							</div>
+						</div>
+
+						<div id="dw-mast-auth" class="dw-mf-hide">
+							<div>
+								<h2>My developerWorks:</h2>
+								<ul>
+									<li><a id="dw-mast-top-0-0" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">My profile</a></li>
+									<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">My home</a></li>
+									<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/mycommunities?lang=en">My groups</a></li>
+								</ul>     
+							</div>
+							<div id="dw-mast-notify" class="dw-mf-hide">
+								<h2>My notifications:</h2>
+								<ul>
+									<li><a id="new_notify" href="https://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">{[num_notify] new notifications}([num_notify] new notification)</a></li>
+									<li><a id="new_invite" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/wc.do?action=in&requireAuth=true&widgetId=friends&lang=[lang]">{[num_invite] network requests}([num_invite] network request)</a></li>  
+								</ul>
+							</div>
+							<div class="dw-mast-more">
+								<ul class="ibm-link-list">
+									<li><a class="dw-more-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="signOut(); return false;"><strong>Sign out</strong></a></li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>					
+                   
+                </div>
+                <!-- Language selector --> 
+				<div class="dw-mast-columns">
+					<div class="dw-mast-col-2-1">
+						<h2>Select a language:</h2>
+						<ul>
+							<li><a id="dw-mast-top-1-0" href="http://www.ibm.com/developerworks/">English</a></li>
+							<li><a href="http://www.ibm.com/developerworks/cn/">中文</a></li>
+							<li><a href="http://www.ibm.com/developerworks/jp/">日本語</a></li>
+							<li><a href="http://www.ibm.com/developerworks/kr/">한국어</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-col-2-2">
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/ru/">Русско</a></li>
+							<li><a href="http://www.ibm.com/developerworks/br/">Português (Brasil)</a></li>
+							<li><a href="http://www.ibm.com/developerworks/ssa/">Español</a></li>
+							<li><a href="http://www.ibm.com/developerworks/vn/">Việt</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div id="ibm-universal-nav-dw">
+        <ul id="ibm-unav-links-dw">
+            <li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerWorks/"><img src="./An introduction to OMA Device Management_files/dw-wordmark.gif" width="218" height="32" alt="developerWorks®"></a>
+            </li>
+        </ul>
+        <ul id="ibm-menu-links-dw">
+            <li id="dw-mast-nav-0"><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></li>
+            <li id="dw-mast-nav-1"><a href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></li>
+            <li id="dw-mast-nav-2"><a href="http://www.ibm.com/developerworks/community/">Community</a></li>
+            <li id="dw-mast-nav-3"><a href="http://www.ibm.com/developerworks/events/">Events</a></li>
+        </ul>
+			<form id="ibm-search-form" action="https://www.ibm.com/search/csass/search/" method="get" name="form1">
+				<input type="hidden" name="sn" value="dw">
+				<input type="hidden" name="lang" value="en">
+				<input type="hidden" name="cc" value="US">
+				<input type="hidden" name="en" value="utf">
+				<input type="hidden" name="hpp" value="20">
+				<input type="hidden" name="dws" value="dw">
+				<p>
+				<label for="q"><img alt="Search developerWorks" height="1" width="1" src="./An introduction to OMA Device Management_files/c.gif"></label>
+				<input type="text" value="Search developerWorks" name="q" maxlength="100" id="q">
+				<input type="submit" id="ibm-search" class="ibm-btn-search" name="Search" value="Search">
+				</p>
+			</form>
+    </div>
+    
+    <!-- BOTTOM ROW SLIDER -->
+    <div id="ibm-common-menu-dw">
+        <div class="ibm-ribbon-pane-dw dw-ribbon-pane-en">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Technical topics category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-3-1">
+						<h2>IBM products:</h2>
+						<ul>
+							<li><a id="dw-mast-nav-0-0" href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+							<li><a href="http://www.ibm.com/developerworks/data/">Information Management</a></li>
+							<li><a href="http://www.ibm.com/developerworks/lotus/">Lotus</a></li>
+							<li><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+							<li><a href="http://www.ibm.com/developerworks/tivoli/">Tivoli</a></li>  
+							<li><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>     
+						</ul>     
+                    </div>
+					<div class="dw-mast-col-3-2">
+						<h2>Technologies:</h2>
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+							<li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+							<li><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+							<li><a href="http://www.ibm.com/developerworks/webservices/">SOA and web services</a></li>
+							<li><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>  
+							<li><a href="http://www.ibm.com/developerworks/xml/">XML</a></li>     
+						</ul>
+                    </div>
+					<div class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+						<h2>Solutions:</h2>
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+							<li><a href="http://www.ibm.com/developerworks/industry/">Industries</a></li>
+							<li><a href="http://www.ibm.com/developerworks/servicemanagement/">Integrated Service Management</a></li>
+						</ul>
+						<ul>
+							<li class="dw-mast-newgroup"><a href="http://www.ibm.com/developerworks/library/">Technical library</a></li>
+							<li><a href="http://www.ibm.com/developerworks/feeds/">Feeds and syndication</a></li>
+							<li><a href="https://www.ibm.com/developerworks/newsletter/">Newsletters</a></li>
+						</ul>        
+                    </div>
+                    <div class="dw-mast-more dw-mast-more-en">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/topics/"><strong>More about Technical topics</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Evaluation software category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-1-1">
+						<h2>Find software by:</h2>
+						<ul>
+							<li><a id="dw-mast-nav-1-0" href="http://www.ibm.com/developerworks/downloads/product.html">IBM product</a></li>
+							<li><a href="http://www.ibm.com/developerworks/downloads/evalmethod.html">Evaluation method (Download, online trial, product beta, cloud)</a></li>
+							<li><a href="http://www.ibm.com/developerworks/downloads/industry.html">Industry</a></li>
+						</ul>            
+                    </div>
+                    <div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/downloads/"><strong>More about Evaluation software</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Community category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-2-1">
+						<ul>
+							<li><a id="dw-mast-nav-2-0" href="https://www.ibm.com/developerworks/community/homepage/">My home</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/profiles/">Profiles</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/groups/">Groups</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/blogs/">Blogs</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/bookmarks/">Bookmarks</a></li>  
+						</ul>     
+                    </div>
+					<div class="dw-mast-col-2-2">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/forums/">Forums</a></li>
+							<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/wikis/">Wikis</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/files/">Files</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/activities/">Activities</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/podcasts/">Podcasts</a></li>     
+						</ul>
+                    </div>
+                    <div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/community/"><strong>More about Community</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Events category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-1-1">
+						<ul>
+							<li><a id="dw-mast-nav-3-0" href="http://www.ibm.com/developerworks/briefings/">Briefings</a></li>
+							<li><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+							<li><a href="http://www.ibm.com/developerworks/find/events/">Find events (briefings, webcasts, conferences...)</a></li>
+						</ul>            
+                    </div>
+                    <div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/events/"><strong>More about Events</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div id="fdiv" class="ibm-access"><embed type="application/x-shockwave-flash" src="https://www.ibm.com/developerworks/js/dw-mf/connect.swf" width="1" height="1" id="sflash" name="sflash" quality="high" menu="false" wmode="window" movie="https://www.ibm.com/developerworks/js/dw-mf/connect.swf" swliveconnect="true" allowscriptaccess="always"></div>
+<!-- MASTHEAD_END --><!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></li><li><a href="http://www.ibm.com/developerworks/architecture/">Architecture</a></li><li><a href="http://www.ibm.com/developerworks/views/architecture/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>An introduction to OMA Device Management</h1><p><em>Improve the interoperability between devices and servers with the latest specification.</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#author1" title="">Stephanie Lin</a> (<a href="mailto:phlin@tw.ibm.com?subject=An%20introduction%20to%20OMA%20Device%20Management">phlin@tw.ibm.com</a>), Software Engineer, IBM, Software Group</div><div id="authortip1" class="dwauthor-onload-state ibm-no-print" style="display: none; "><div class="position"><img src="./An introduction to OMA Device Management_files/p-slin.jpg" width="64" height="80" alt=""></div>Stephanie Lin has been a developer with the IBM China Software Development Lab in Taipei since 2005, and currently is a project member of the WebSphere Everyplace Subscription Manager team. Her interests are server-side technologies and solutions in the telecommunications industry. Contact Stephanie at <a href="mailto:phlin@tw.ibm.com">phlin@tw.ibm.com</a>. </div><div class="author"><a class="dwauthor" rel="#authortip2" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#author2" title="">Steven Jiang</a> (<a href="mailto:jiangmd@tw.ibm.com?subject=An%20introduction%20to%20OMA%20Device%20Management">jiangmd@tw.ibm.com</a>), Staff Software Engineer, IBM, Software Group</div><div id="authortip2" class="dwauthor-onload-state ibm-no-print" style="display: none; "><div class="position"><img src="./An introduction to OMA Device Management_files/p-sjiang.jpg" width="64" height="80" alt=""></div>Steven Jiang is a Project Manager on the PvC Enterprise/SPO development team at the IBM China Software Development Lab. His current project is the WebSphere Everyplace Subscription Manager (WESM), with a focus on service engagement and product solution architecture.</div><div class="author"><a class="dwauthor" rel="#authortip3" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#author3">Hicks Lin</a> (<a href="mailto:zhlin@tw.ibm.com?subject=An%20introduction%20to%20OMA%20Device%20Management">zhlin@tw.ibm.com</a>), Software Engineer, IBM, Software Group</div><div id="authortip3" class="dwauthor-onload-state ibm-no-print" style="display: none; "><div class="position"><img src="./An introduction to OMA Device Management_files/p-hlin.jpg" width="64" height="80" alt=""></div>Hicks Lin is a developer with the IBM China Software Development Lab in Taipei where he is a technical leader for WebSphere Everyplace Subscription Manager. He is interested in J2EE and other server-side technologies.</div><div class="author"><a class="dwauthor" rel="#authortip4" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#author4">Jeffrey Liu</a> (<a href="mailto:liuch@tw.ibm.com?subject=An%20introduction%20to%20OMA%20Device%20Management">liuch@tw.ibm.com</a>), Software Engineer, IBM, Software Group</div><div id="authortip4" class="dwauthor-onload-state ibm-no-print" style="display: none; "><div class="position"><img src="./An introduction to OMA Device Management_files/p-jliu.jpg" width="64" height="80" alt=""></div>Jeffrey Liu received a Masters degree from National Taiwan University, Information Management department, and joined the IBM China Software Development Lab in  2005. He is a member of WebSphere Everyplace Subscription Manager product development team and currently focuses on the development of WESM Radius server.</div>
+<p></p>
+<p><b>Summary:</b>&nbsp; Device management pertains to configurations, provisioning client applications, and detecting problems of remote devices from servers. With the dramatic increase in available devices and vendors, various proprietary device management implementations have evolved, and as a result, threaten the interoperability of devices and servers. To avoid this, the OMA Device Management (OMA DM) specification aims to unify them. Learn the concepts of OMA DM, based on the latest version 1.2, and use IBM® WebSphere® Everyplace Device Manager (Device Manager) 6.0 to illustrate OMA DM server implementation.</p>
+
+<div id="dw-tag-content" class="ibm-no-print"></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"><div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F">Log in</a> | <a class="dw-interest" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#overlay" onclick="ibmCommon.Overlays.show(&#39;dwmyinterestadd&#39;, this);return false;">What's this?</a>) <a class="ibm-access" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div></div><p></p>
+</div>
+
+<div class="ibm-column ibm-second">
+<p class="leading"><b>Date:</b>&nbsp; 31 Oct 2006
+<br><b>Level: </b>&nbsp;Introductory
+
+<br>
+
+<br><b>Comments:</b> &nbsp; <span id="nCmts">0&nbsp;(<a class="dw-view-comment" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#icomments">View</a>&nbsp;|&nbsp;<a onclick="showSignIn();return false;" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Add comment</a> - Sign in)</span>
+<!-- Rating_Area_Begin -->
+</p><div id="art-rating-summary"><img alt="Average rating 4 stars based on 82 votes" src="./An introduction to OMA Device Management_files/stars120x20-4b.jpg" class="dw-avg-rating"> Average rating (82 votes)<br><a class="dw-view-comment" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#iratings">Rate this article</a></div>
+<!-- Rating_Area_End -->
+<p></p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+<script type="text/javascript" language="javascript">
+	     capture_referrer();
+</script>
+
+<div id="dw-related-searches-article" style="display:none">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display:block"></div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="N10084"><span class="atitle">Why device management?</span></a></p><p>You often need to evolve devices to another stage so they can function either correctly or better. For example, say a device resets accidentally and the user has no idea how to reconfigure it. If your device management server contains the required information and can reset the device for the user, it saves both time and cost. Another example is when a user needs a device firmware update. He may not have sufficient equipment and knowledge to perform the update actions, but he also doesn't want to take his device to a maintenance center. By having a device initiate its own management session, servers can perform the procedure for the user. In the end, device management aims to achieve these important function requirements:</p><ul><li>Bootstrap provisioning, remote maintenance, and reporting of configuration data to a device</li><li>Device diagnostics and fault management</li><li>Application and non-application software installation, update, and management</li></ul><p>Despite the fact that thousands of different devices are designed to fulfill these needs, this ideal is difficult to achieve. While individuals have plenty of device options, device management is still a big challenge. Device management is originally based on several proprietary protocols, each of which serves a small set of devices. This complicates the tasks of users, wireless operators, service providers, and corporate information management departments who have to purchase, learn, and manage several device management systems for different types of proprietary device management protocols. Therefore, instead of performing tasks through sets of systems running various kinds of protocols, there needs to be a common interface that allows device management authorities to complete all the tasks remotely.</p><p>This is exactly why OMA Device Management exists.</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10096"><span class="atitle">OMA DM</span></a></p><p>The Open Mobile Alliance (OMA) was formed in June 2002 by nearly 200 companies that play important roles in the mobile industry's value chain. The alliance focuses on developing interoperable mobile service enablers, and becomes the focal point in device management by consolidating several organizations into OMA, including SyncML Initiatives and WAP Forum. SyncML DM, which was one of SyncML's main specifications, has evolved into OMA DM. OMA's Device Management Working Group is in charge of the revision and publication of OMA Device Management.</p><p>OMA DM has the approved enabler, version 1.1.2, and is currently working on the candidate enabler, version 1.2. OMA DM 1.2 contains the Enabler Release Definition for OMA DM, along with eight technical specifications and two supporting files. Enabler Release Definition mainly defines the scope of OMA DM, and the server and client requirements to conform to OMA DM. Technical specifications consist of three parts: data models, protocol and mechanism, and policy. In the following section, we discuss in detail data models, protocols, and mechanisms intermixing with version 1.2 policy concepts.</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N1009F"><span class="atitle">Data model</span></a></p><p>Each device that supports OMA DM contains a <em>management tree</em>. The management tree (see <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#figure1">Figure 1</a>) contains and organizes all the available management objects so that you can access every node directly through a unique URI. For example, to access the "xyzInc" node, the correct URI is <code>./DMAcc/xyzInc</code>.</p><br><a name="figure1"><b>
+					Figure 1. Example management tree (Source: OMA DM Tree and Description)
+				</b></a><br><img alt="Example management Tree" height="229" src="./An introduction to OMA Device Management_files/fig1-tree.gif" width="301"><br><p><em>Nodes</em> are entities that you can manipulate through the OMA DM protocol. An interior node can have an unlimited number of child nodes, while a leaf node must contain a value, including null. Each node has a set of run-time properties associated with it. All properties are only valid for the associated node, except the Access Control List (ACL). A node's ACL represents which server can manipulate that node. The manipulation includes adding a child node, getting the node's properties, replacing this node, or deleting this node. <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#table1">Table 1</a> lists other run-time properties.
+			</p><br><a name="table1"><b>Table 1. Run-time property list</b></a><br><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Recommended highlighting" width="100%"><tbody><tr><th>Property</th><th>Applicable commands</th><th>Comments</th></tr><tr><td>ACL</td><td>Get, Replace</td><td>Get and Replace are the only valid commands for ACL manipulation. Note that Replace always replaces the complete ACL.</td></tr><tr><td>Format</td><td>Get</td><td>Automatically updated by Add and Replace
+commands on the associated node.</td></tr><tr><td>Name</td><td>Get, Replace</td><td>Replace is equivalent to renaming the node.</td></tr><tr><td>Size</td><td>Get</td><td>Automatically updated by the device</td></tr><tr><td>Title</td><td>Get, Replace</td><td>Only updated by server actions or software version changes.</td></tr><tr><td>TStamp</td><td>Get</td><td>Automatically updated by Add and Replace
+commands on the associated leaf node.</td></tr><tr><td>VerNo</td><td>Get</td><td>Automatically updated by the device.</td></tr></tbody></table><p>However, it would be insufficient for servers and clients to perform device management tasks if no common objects exist in OMA DM conformance devices. Therefore, OMA DM requires clients and servers to implement three mandatory management objects and one optional object for clients and servers (see <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#table2">Table 2</a>). These objects are defined in the device description framework (DDF). The DDF provides servers with necessary information in order to manage client devices. Device manufacturers can publish their description of their devices so that organizations operating device management servers can update the new description into those servers. The servers can then utilize the new description and manage new functions of their devices, or even manage new devices. Physically, you can use XML and WBXML to transfer management information back and forth. Thus, OMA DM also provides a way to transform management trees to and from XML and WBXML files. </p><br><a name="table2"><b>Table 2. Standardized management objects</b></a><br><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Recommended highlighting" width="100%"><tbody><tr><th>Management object</th><th>Description</th></tr><tr><td>DMAcc</td><td>Settings for the DM client in a managed device.</td></tr><tr><td>DevInfo</td><td>Device information for the OMA DM server. Sent from the client to the server in the beginning of every session.</td></tr><tr><td>DevDetail</td><td>General device information that benefits from standardization.</td></tr><tr><td>Inbox</td><td>Reserved URI where the device should use the management object identifier to identify the absolute URI. (Optional)</td></tr></tbody></table><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10133"><span class="atitle">Protocol and mechanism</span></a></p><p>OMA DM's protocol defines its device management usage based on SyncML Representation Protocol and SyncML Synchronization Protocol. This protocol includes packet elements that construct the device management messages, message transfer mechanism, and treatments that servers and clients should perform. Among all the packet elements, it is worthwhile to know <em>command</em> elements in more detail.</p><br><a name="table3"><b>Table 3. Protocol command elements</b></a><br><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Recommended highlighting" width="100%"><tbody><tr><th>Command</th><th>Who sends the command</th><th>Description</th></tr><tr><td>Add</td><td>Server</td><td>Creates a node</td></tr><tr><td>Atomic</td><td>Server</td><td>Specify that the subordinate commands are processed as a set</td></tr><tr><td>Copy</td><td>Server</td><td>Duplicate or move the data on the client</td></tr><tr><td>Delete</td><td>Server</td><td>Delete a node and its entire subtree, if the permission is right</td></tr><tr><td>Exec</td><td>Server</td><td>Execute the value of the target node</td></tr><tr><td>Get</td><td>Server</td><td>Return value of the target node</td></tr><tr><td>Replace</td><td>Server</td><td>Overwrite a value of an existing node</td></tr><tr><td>Sequence</td><td>Server</td><td>Specify the order of processing a set of commands</td></tr><tr><td>Alert</td><td>Client</td><td>Convey notification</td></tr><tr><td>Results</td><td>Client</td><td>Specify the command for this response and return the result</td></tr></tbody></table><p><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#table3">Table 3</a> lists all the commands that OMA DM supports. The commands are executed according to what the ACL and the target node's <code>accessType</code> specify. Meanwhile, a corresponding status code is associated with every command to facilitate the other party to figure out the processing results.</p><p>To perform a complete device management task, servers and clients go through two phases: the setup phase and the management phase (see <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#figure2">Figure 2</a>). During the setup phase, servers and clients authenticate each other and exchange device information. Packet 0 is an option for servers to notify clients to initiate the management session. After the client successfully sends the authentication and its device information (packet 1), the server sends its credential and information, along with the management operations or user interaction commands to the client (packet 2). </p><p>Then begins the management phase, which could have several iterations until the management task is completed. During this phase, the client sends its response to the server. The response only allows the <code>Replace</code> command containing <code>DevInfo</code>, the <code>Results</code> command, and the <code>Alerts</code> command to be sent to the server. The server can then send out another operation to the client.</p><br><a name="figure2"><b>Figure 2. Phases of Device Management Protocol (Source: OMA Device Management Protocol)
+				</b></a><br><img alt="Phases of Device Management Protocol" height="460" src="./An introduction to OMA Device Management_files/fig2-protocol_phases.gif" width="327"><br><p>As for mechanisms, OMA DM specifies <em>bootstrap</em> and <em>notification initiated session</em>. Bootstrap is a process that provisions a device from a clean state to a state that can initiate device management sessions. You can further bootstrap a bootstrapped client to initiate a session to a new device management server. You can bootstrap the client through the server-initiated process, from smart cards, or even through customized bootstraps, which may perform during the device manufacturing time. Meanwhile, two profiles are specified in the bootstrap mechanism. The first one is the OMA Client Provisioning Profile. This profile's message content is based on the OMA Client Provisioning Content Specification; it provides a way to map client-provisioning information to the device management tree.  The second profile is OMA Device Management Profile, which uses the standard device management information encoded into WBXML. </p><p>The second mechanism actually specifies the details of packet 0 in the Device Management Protocol's setup phase. Normally, clients do not have the resources or are not willing to consistently listen to servers' notification because of security reasons. Therefore, this mechanism provides a way for servers to notify clients to initiate a management session. Occasions might include when device management administrators trigger requests on servers to perform device management tasks through the user interface, or faults are generated that require clients to go online.</p><p>As always, security is a concern in device management. Servers and clients should use TLS 1.0 or SSL 3.0 as their protocols. HMAC-MD5 ensures integrity of device management messages. In addition, you should send credentials of servers and clients for authentication. 
+			</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N101CE"><span class="atitle">Mapping technical concepts to specifications</span></a></p><p>Because many specifications are contained in OMA DM, which can be confusing, we'll briefly introduce each specification by mapping it back to the concept and terminologies mentioned earlier.
+			</p><p>DM Tree and Description, DM Standardized Objects, and DM Tree and Description Serialization define the data model part:</p><ul><li>DM Tree and Description define the formation of the management tree, including nodes, properties, and DDF.</li><li>DM Standardized Objects define DM Account, DevInfo, DevDetail, and inbox management objects.</li><li>To facilitate the exchange of management tree values, DM Tree and Description Serialization defines the way to convert a run-time management tree or subtree into an XML or WBXML structure.</li></ul><p>As for protocol, DM Protocol and DM Representation Protocol play the main roles. As we mentioned in the previous section, SyncML Representation Protocol and SyncML Synchronization Protocol is the base. On top of this, DM Representation Protocol defines the usage of the markup language in device management. In addition, DM Protocol defines protocol packages shown in <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#figure2">Figure 2</a>, accompanying other necessary points for setting up a management session.</p><p>Two mechanisms are also defined to complete OMA DM: DM Bootstrap and DM Notification Initiated Session. Bootstrap, or client provisioning, is the first step for preparing a managed device. DM Notification Initiated Session, on the other hand, allows management servers to notify the client to initiate a session back.</p><p>Finally, DM Security, along with some DM tree properties, constitutes the specification's policy part. Besides the principles of confidentiality, integrity, authentication, and so on, ACL is one example of policies that control whether you can manipulate the node.
+			</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N101E8"><span class="atitle">OMA DM devices with WebSphere Everyplace Device Manager</span></a></p><p>WebSphere Everyplace Device Manager (Device Manager) provides a flexible solution for managing various mobile devices. In V6.0, it supports Palm, Symbian, Windows® Mobile 2003, Windows PocketPC, OSGi, and of course, OMA DM 1.1.2 and 1.2 devices. In this section, we will use Device Manager's functions for managing OMA DM devices as an example of putting theory into practice.
+			</p><br><a name="table4"><b>Table 4. Jobs and tasks Device Manager supports for OMA DM devices</b></a><br><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="Recommended highlighting" width="100%"><tbody><tr><th>Jobs</th></tr><tr><td>Bootstrap</td></tr><tr><td>Command Script</td></tr><tr><td>Custom Command</td></tr><tr><td>Device Configuration</td></tr><tr><td>Inventory Collection</td></tr><tr><td>Node Discovery</td></tr><tr><td>Notification</td></tr><tr><td>OMA Client Provisioning</td></tr><tr><td>OMA DM Firmware Update</td></tr><tr><td>Text SMS</td></tr></tbody></table><p>Device Manager uses the word "job" to describe any specialized processing, performed on a device or group of devices, through device manager user interfaces or its APIs. <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#table4">Table 4</a> lists all supported jobs. </p><p>Although in theory the first step is bootstrapping, in the world of Device Manager, everything starts from <em>enrollment</em>. An administrator could pre-enroll a device, and determine whether he or she will use a bootstrap job to initially provision the client device; or if the device and server do not use any OMA DM security, the client can automatically enroll when the device first connects to the server. After enrolling, the server will have an entry containing the device type, name/serial number, the device username and password. Then, the <em>inventory collection job</em> is performed by default.</p><p>The inventory collection job uses the <code>Get</code> command to return the value of the designated standard objects (discussed in the data model section) and stores them in the device management database as "inventory." Succeeding jobs like the <em>device configuration job</em>, besides being able to set the initial configuration of newly enrolled devices, changes the inventory data if needed. Meanwhile, if administrators need a value besides standard objects, they can supply the designated node's URI and use the <em>node discovery job</em> to walk through the specified node's subtree and return the value.</p><p>For bootstrapping, you can choose either the <em>bootstrap job</em> or <em>OMA client provisioning</em> based on the client-supported profile. With the former, you can use DM 1.1.2 Plain Profile and DM 1.2 Profile. The bootstrap job also supports the WAP Profile, which uses OMA Client Provisioning 1.1. For the latter, you must build an OMA Client Provisioning XML file before using the job. However, no matter which profile you choose, the server must send out a notification so the client will initiate the session back. The <em>notification job</em> can achieve this. In addition, the <em>text SMS job</em> can send notification from the server to the client.</p><p>Administrators can create both the <em>custom command job</em> and <em>command script job</em> to perform operations on devices or return device information using OMA DM's server-to-client commands. The difference between the custom command job and the command script job is all about scripts. While administrators can specify the custom command job using the device management console or Administration API, administrators can also build a command script and create a command script job by specifying the script location if the custom command job is not flexible enough. When the job runs, the command script is parsed and interpreted to build the list of BaseOMA DM commands to be sent to the device.</p><p>There is only one job left that we did not mention: <em>OMA DM firmware update </em>. Ideally, updating firmware happens remotely; however, OMA DM never specifically defines how to do this. A new specification, Firmware Update Management Object (FUMO), does instead. FUMO takes the advantages of OMA DM by using its predefined command to fulfill the lack of an interoperable firmware update solution for mobile devices. Device Manager, therefore, follows FUMO V1.0 to implement this firmware update job. For more information on firmware updates, see <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#resources">Resources</a> for FUMO.
+				</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10257"><span class="atitle">In conclusion</span></a></p><p>OMA DM is an interoperable device management specification. By conforming to OMA DM, users, wireless operators, service providers, and corporate information management departments can eliminate the complication of various proprietary protocols. Also, OMA DM is one building block to conforming to OMA SyncML Common 1.2. In this article, we have illustrated the motivation behind OMA DM, its background, technical concepts, as well as details of each specification. Hopefully, through industry endeavors, we can have a better device management experience in the future.
+			</p><!-- CMA ID: 171858 --> <!-- Site ID: 1 --> <!-- XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl -->
+<br>
+<p><a name="resources"><span class="atitle">Resources</span></a></p><ul><li><a href="http://www.openmobilealliance.org/">OMA</a>: OMA is the leading industry forum for developing market-driven, interoperable mobile service enablers.
+			<br><br></li><li><a href="http://www.openmobilealliance.org/release_program/dm_v1_2.html">OMA DM v1.2 Candidate Enabler</a>: After reading this article, visit the OMA DM v1.2 Candidate Enabler site for more details.
+			<br><br></li><li><a href="http://www.openmobilealliance.org/release_program/SyncML_v12.html">OMA SyncML Common Specification</a>: To know more about the base of an OMA DM protocol, find the SyncML Representation Protocol at this site.
+			<br><br></li><li><a href="http://www.openmobilealliance.org/release_program/cp_v1_1.htm">OMA Client Provisioning</a>: This is a specification defining client provisioning in general usage. OMA DM supports this in the bootstrap specification as one provisioning profile.
+			<br><br></li><li><a href="http://www.openmobilealliance.org/release_program/fumo_v1_0.html"> Firmware Update Management Object V1.0 Candidate Enabler</a>: Interested in the interoperable firmware update specification? Take a look at this Web site. 
+			<br><br></li><li><a href="http://publib.boulder.ibm.com/infocenter/wedmInfo/v6r0/index.jsp">WebSphere Everyplace Device Manager</a>: This is the official Web site containing a brief introduction to Device Manager.
+			<br><br></li><li><a href="http://publib.boulder.ibm.com/infocenter/wedmInfo/v6r0/index.jsp">WebSphere Everyplace Device Manager 6.0 Information Center</a>: Learn more about the technical side of Device Manager from this site.
+			<br><br></li></ul>
+<p><a name="author"><span class="atitle">About the authors</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><img src="./An introduction to OMA Device Management_files/p-slin.jpg" class="dw-author-img" width="64" height="80" alt="Stephanie Lin"><p><a name="author1"> </a>Stephanie Lin has been a developer with the IBM China Software Development Lab in Taipei since 2005, and currently is a project member of the WebSphere Everyplace Subscription Manager team. Her interests are server-side technologies and solutions in the telecommunications industry. Contact Stephanie at <a href="mailto:phlin@tw.ibm.com">phlin@tw.ibm.com</a>. </p></div><div class="ibm-container-body"><img src="./An introduction to OMA Device Management_files/p-sjiang.jpg" class="dw-author-img" width="64" height="80" alt="Steven Jiang"><p><a name="author2"> </a>Steven Jiang is a Project Manager on the PvC Enterprise/SPO development team at the IBM China Software Development Lab. His current project is the WebSphere Everyplace Subscription Manager (WESM), with a focus on service engagement and product solution architecture.</p></div><div class="ibm-container-body"><img src="./An introduction to OMA Device Management_files/p-hlin.jpg" class="dw-author-img" width="64" height="80" alt="Hicks Lin"><p><a name="author3"> </a>Hicks Lin is a developer with the IBM China Software Development Lab in Taipei where he is a technical leader for WebSphere Everyplace Subscription Manager. He is interested in J2EE and other server-side technologies.</p></div><div class="ibm-container-body"><img src="./An introduction to OMA Device Management_files/p-jliu.jpg" class="dw-author-img" width="64" height="80" alt="Jeffrey Liu"><p><a name="author4"> </a>Jeffrey Liu received a Masters degree from National Taiwan University, Information Management department, and joined the IBM China Software Development Lab in  2005. He is a member of WebSphere Everyplace Subscription Manager product development team and currently focuses on the development of WESM Radius server.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- OVERLAYS_START -->
+<!-- Report_Abuse_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlay">
+   <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></p></div>
+   <div class="ibm-body">
+      <div class="ibm-main">
+         <a class="ibm-access" name="reportabuseoverlay">Report abuse help</a>   
+         <div class="ibm-title"><h1>Report abuse</h1></div>
+         <div class="ibm-container ibm-alternate">
+            <p><strong>Thank you.</strong>  This entry has been flagged for moderator attention.</p>
+            <div class="ibm-overlay-rule"><hr></div>
+            <div class="ibm-buttons-row">
+               <input type="button" onclick="ibmCommon.Overlays.hide(&#39;reportabuseoverlay&#39;);return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="Close">
+            </div>
+         </div>
+      </div> 
+   </div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Report_Abuse_Error_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlayerror">
+   <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></p></div>
+   <div class="ibm-body">
+      <div class="ibm-main">
+         <a class="ibm-access" name="reportabuseoverlayerror">Report abuse help</a>   
+         <div class="ibm-title"><h1>Report abuse</h1></div>
+         <div class="ibm-container ibm-alternate">
+            <p class="ibm-ind-error"><strong>Report abuse submission failed.  Please try again later.</strong></p>
+            <div class="ibm-overlay-rule"><hr></div>
+            <div class="ibm-buttons-row">
+               <input type="button" onclick="ibmCommon.Overlays.hide(&#39;reportabuseoverlayerror&#39;);return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="Close">
+            </div>
+         </div>
+      </div> 
+   </div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE --> 
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title ibm-subtitle">
+<h1>developerWorks: Sign in</h1>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">If you don't have an IBM ID and password, <a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;/developerworks/dwwi/DWAuthRouter?m=reg&amp;d=&#39;+encodeURIComponent(location.href);})();">register here</a>.</p>
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm" onsubmit="return false;">
+<p><label for="ibmid">IBM ID:</label><span><input name="ibm-id" id="ibmid" size="25" value="" class="required" type="text" onkeypress="handleEP(event,this.form);"><br><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></span>   
+</p> 
+<p><label for="password">Password:</label><span><input name="password" id="password" size="25" value="" class="required" type="password" onkeypress="handleEP(event,this.form);"><br><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(getAuthUrl())+&#39;%3Fm%3Dloginpage%26lang%3Den_US%26d%3D&#39;+encodeURIComponent(location.href);})();">Forgot your password?</a><br><a class="ibm-forward-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="(function () {window.location=&#39;https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d=&#39;+encodeURIComponent(location.href);})();">Change your password</a></span></p> 
+<p class="no-bottom-padding"> 
+   <label for="AfterSignIn">After sign in:</label> 
+   <span>
+
+      <select name="SignInAction" id="AfterSignIn">
+          <option value="">Stay on the current page</option>
+          <option value="/developerworks/mydeveloperworks/profiles/html/myProfileView.do">My developerWorks profile</option>
+          <option value="/developerworks/mydeveloperworks/homepage/">My developerWorks home</option>
+      </select>
+   </span>
+</p>
+<div class="ibm-overlay-rule"><hr></div>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="signin();return false;" type="button"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide(&#39;signin_overlay&#39;);return false;"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<p>The first time you sign into developerWorks, a profile is created for you. This profile includes the first name, last name, and display name you identified when you registered with developerWorks. 
+<strong>Select information in your developerWorks profile is displayed to the public, but you may edit the information at any time</strong>. Your first name, last name (unless you choose to hide them), and display name will accompany the content that you post.</p>
+<div class="dw-overlay-legal"><p>All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Sign in OVERLAY ENDS HERE --> 
+ 
+
+<!-- Display name OVERLAY STARTS HERE --> 
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" onclick="clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title ibm-subtitle">
+<h1>Choose your display name</h1>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerWorks.</p>
+<p><strong>Please choose a display name between 3-31 characters</strong>. Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+<form id="dFormId" method="post" action="" name="dForm" onsubmit="return false;" class="ibm-column-form">
+<p><label for="displayname">Display name:</label><span><input name="displayname" id="displayname" size="25" value="" type="text" onkeypress="handleEP(event,this.form);"></span><span class="ibm-form-note">(Must be between 3 – 31 characters.)</span>
+</p>
+
+<div class="ibm-overlay-rule"><hr>
+</div>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="signin();return false;" type="button"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide(&#39;displayname_overlay&#39;);return false;"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div class="dw-overlay-legal"><p>All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY ENDS HERE -->
+<!-- OVERLAYS_END -->
+
+<!-- RATINGS START -->
+<p class="ibm-no-print"><span class="atitle"><a name="iratings">Rate this article</a></span></p>
+<input id="art-rating" name="ratinga" type="hidden" value="4"><div id="art-rating-module"><p id="submitErr" class="ibm-ind-error" style="display: none;"><strong>Error: Submission failed. Please try again.</strong></p><p><span id="ratingSectUI"><img alt="Average rating 4 stars based on 82 votes" src="./An introduction to OMA Device Management_files/stars120x20-4gw.jpg" class="dw-avg-rating"> Average rating (82 votes)</span></p><div class="ibm-container" id="ratingForm"><div class="ibm-container-body dw-container-ratings"><form class="dw-ratings-form" onsubmit="artRating.submitRating(); return false;"><input type="radio" name="ratingstars" id="rat-1" value="1"><label class="rating-label" id="star1" for="rat-1">1 star</label><img id="rat-1-img" alt="1 star" title="1 star" src="./An introduction to OMA Device Management_files/stars120x20-1w.jpg" class="rating-image"><span class="dw-rating-text">1 star</span><br><input type="radio" name="ratingstars" id="rat-2" value="2"><label class="rating-label" id="star2" for="rat-2">2 stars</label><img id="rat-2-img" alt="2 stars" title="2 stars" src="./An introduction to OMA Device Management_files/stars120x20-2w.jpg" class="rating-image2"><span class="dw-rating-text">2 stars</span><br><input type="radio" name="ratingstars" id="rat-3" value="3"><label class="rating-label" id="star3" for="rat-3">3 stars</label><img id="rat-3-img" alt="3 stars" title="3 stars" src="./An introduction to OMA Device Management_files/stars120x20-3w.jpg" class="rating-image2"><span class="dw-rating-text">3 stars</span><br><input type="radio" name="ratingstars" id="rat-4" value="4"><label class="rating-label" id="star4" for="rat-4">4 stars</label><img id="rat-4-img" alt="4 stars" title="4 stars" src="./An introduction to OMA Device Management_files/stars120x20-4w.jpg" class="rating-image2"><span class="dw-rating-text">4 stars</span><br><input type="radio" name="ratingstars" id="rat-5" value="5"><label class="rating-label" id="star5" for="rat-5">5 stars</label><img id="rat-5-img" alt="5 stars" title="5 stars" src="./An introduction to OMA Device Management_files/stars120x20-5w.jpg" class="rating-image2"><span class="dw-rating-text">5 stars</span><div class="ibm-buttons-row"><p class="ibm-first"><input value="Submit" type="submit" name="ibm-submit" class="ibm-btn-arrow-pri dw-ratings-submit"></p></div></form></div></div></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-module','art-rating-summary');
+// ]]>
+</script>
+<!-- RATINGS END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="threadShow"><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><p id="cmtHead"><label for="newCmt"><strong>Add comment:</strong></label></p><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect"> <a onclick="showSignIn();return false;" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Sign in</a> or <a href="https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=register&lang=en&d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F%23icomments">register</a>  to leave a comment.</p><p>Note: HTML elements are not supported within comments.</p><span id="infoCmt"></span><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form"><p><textarea cols="120" rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><div id="notifiedSect"><label for="comment_notification"><span><input type="checkbox" name="comment_notification" id="comment_notification" value="1" disabled=""><span id="notifyText" class="ibm-form-note">Notify me when a comment is added</span></span></label><span id="maxCharsCount" class="ibm-form-note"><span id="charCount">1000</span> characters left</span></div><br><br><p></p><p class="ibm-buttons-row"><input type="button" value="Post" jquery1275054459750="11" name="postCmt" id="postCmt" class="ibm-btn-arrow-sec dw-btn-arrow-sec" alt="Post your comment" disabled=""><br><br></p></form></div></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none; "><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p><span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts">0</span>)</strong></span><span><img src="./An introduction to OMA Device Management_files/c.gif" width="100" height="10" alt=""></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts"><label for="howManyComments">Show:</label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="./An introduction to OMA Device Management_files/short-btn.gif" alt="Go"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>Be the first to add a comment</p></td></tr></tbody></table></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none; "><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p><span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts2">0</span>)</strong></span><span><img src="./An introduction to OMA Device Management_files/c.gif" width="100" height="10" alt=""></span><span class="dw-how-many-comments-label" style="display:none" id="dropdownCmts2"><label for="howManyComments2">Show:</label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="./An introduction to OMA Device Management_files/short-btn.gif" alt="Go"><br></span></p></form></div></div></div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#ibm-pcon">Back to top</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Architecture, WebSphere</div><div class="metavalue">ArticleID=171858</div><div class="metavalue">ArticleTitle=An introduction to OMA Device Management</div><div class="metavalue">publish-date=10312006</div><div class="metavalue">author1-email=phlin@tw.ibm.com</div><div class="metavalue">author1-email-cc=</div><div class="metavalue">author2-email=jiangmd@tw.ibm.com</div><div class="metavalue">author2-email-cc=</div><div class="metavalue">author3-email=zhlin@tw.ibm.com</div><div class="metavalue">author3-email-cc=</div><div class="metavalue">author4-email=liuch@tw.ibm.com</div><div class="metavalue">author4-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace(/</g, '%3C')+'</div>');</script><div class="metavalue">url=https://www.ibm.com/developerworks/wireless/library/wi-oma/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" height="1" width="1" src="./An introduction to OMA Device Management_files/c(1).gif"><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N10084">Why device management?</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N10096">OMA DM</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N1009F">Data model</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N10133">Protocol and mechanism</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N101CE">Mapping technical concepts to specifications</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N101E8">OMA DM devices with WEDM</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#N10257">In conclusion</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#resources">Resources</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#author">About the authors</a></li><li><a class="ibm-feature-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#icomments">Comments</a></li></ul></div></div>
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" height="16" width="16" align="top" src="./An introduction to OMA Device Management_files/help_icon.gif"></a></div>
+<div id="tagtip" class="dwauthor-onload-state ibm-no-print" style="display: none; ">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p>For articles in technology zones (such as Java technology, Linux, Open source, XML), <strong>Popular tags</strong> shows the top tags 
+for <em>all technology zones</em>.  For articles in product zones (such as Info Mgmt, Rational, WebSphere), <strong>Popular tags</strong> shows the top tags for <em>just that product zone</em>.</p><p>For articles in technology zones (such as Java technology, Linux, Open source, XML), <strong>My tags</strong> shows your tags for <em>all technology zones</em>.  For articles in product zones (such as Info Mgmt, Rational, WebSphere), <strong>My tags</strong> shows your tags for <em>just that product zone</em>.</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, &#39;join&#39;)">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input id="tagfield" name="tag" type="text" maxlength="20" size="17">&nbsp;<input src="./An introduction to OMA Device Management_files/short-btn.gif" type="image" class="ibm-btn-view" alt="submit search" title="submit search" value="Search"></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br><a id="a-my" href="javascript:;">My article tags</a><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br><strong>My article tags</strong></p><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#dw-tag-access" class="ibm-access">Skip to tags list</a></div><div id="dw-tag-access" class="ibm-access"><h2>Popular tags</h2><ul>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f1-71">
+					
+					<a title="ajax 257" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&lang=en')">
+					
+						
+						
+							ajax	
+						
+					
+					<span class="ibm-access">(257)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f2-14">
+					
+					<a title="and 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=and&lang=en')">
+					
+						
+						
+							and	
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f3-30">
+					
+					<a title="android 87" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=android&lang=en')">
+					
+						
+						
+							android	
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f4-14">
+					
+					<a title="apache 58" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=apache&lang=en')">
+					
+						
+						
+							apache	
+						
+					
+					<span class="ibm-access">(58)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f5-30">
+					
+					<a title="application_and_information_integration 88" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&lang=en')">
+					
+						
+							application_a...	
+						
+						
+					
+					<span class="ibm-access">(88)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f6-100">
+					
+					<a title="application_development 563" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&lang=en')">
+					
+						
+							application_...	
+						
+						
+					
+					<span class="ibm-access">(563)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f7-76">
+					
+					<a title="architecture 292" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&lang=en')">
+					
+						
+						
+							architecture	
+						
+					
+					<span class="ibm-access">(292)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f8-7">
+					
+					<a title="architecture_-_application 47" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&lang=en')">
+					
+						
+							architecture_-...	
+						
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f9-7">
+					
+					<a title="atom 47" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=atom&lang=en')">
+					
+						
+						
+							atom	
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f10-9">
+					
+					<a title="business_processes 50" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=business_processes&lang=en')">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(50)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f11-49">
+					
+					<a title="cloud 144" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=cloud&lang=en')">
+					
+						
+						
+							cloud	
+						
+					
+					<span class="ibm-access">(144)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f12-31">
+					
+					<a title="cloud_computing 90" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=cloud_computing&lang=en')">
+					
+						
+							cloud_computi...	
+						
+						
+					
+					<span class="ibm-access">(90)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f13-10">
+					
+					<a title="components 52" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=components&lang=en')">
+					
+						
+						
+							components	
+						
+					
+					<span class="ibm-access">(52)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f14-16">
+					
+					<a title="configuration_and_administration 61" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=configuration_and_administration&lang=en')">
+					
+						
+							configuration_...	
+						
+						
+					
+					<span class="ibm-access">(61)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f15-4">
+					
+					<a title="css_(cascading_style_sheets) 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=css_%2528cascading_style_sheets%2529&lang=en')">
+					
+						
+							css_(cascading...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f16-49">
+					
+					<a title="databases_and_data_management 145" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=databases_and_data_management&lang=en')">
+					
+						
+							databases_and...	
+						
+						
+					
+					<span class="ibm-access">(145)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f17-2">
+					
+					<a title="db2 42" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=db2&lang=en')">
+					
+						
+						
+							db2	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f18-8">
+					
+					<a title="design 49" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=design&lang=en')">
+					
+						
+						
+							design	
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f19-3">
+					
+					<a title="development 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=development&lang=en')">
+					
+						
+						
+							development	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f20-12">
+					
+					<a title="dojo 55" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=dojo&lang=en')">
+					
+						
+						
+							dojo	
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f21-11">
+					
+					<a title="dom_(document_object_model) 53" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=dom_%2528document_object_model%2529&lang=en')">
+					
+						
+							dom_(document_...	
+						
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f22-45">
+					
+					<a title="eclipse 131" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=eclipse&lang=en')">
+					
+						
+						
+							eclipse	
+						
+					
+					<span class="ibm-access">(131)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f23-3">
+					
+					<a title="editing 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=editing&lang=en')">
+					
+						
+						
+							editing	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f24-3">
+					
+					<a title="formatting 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=formatting&lang=en')">
+					
+						
+						
+							formatting	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f25-20">
+					
+					<a title="frameworks 68" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=frameworks&lang=en')">
+					
+						
+						
+							frameworks	
+						
+					
+					<span class="ibm-access">(68)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f26-47">
+					
+					<a title="general_programming 138" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=general_programming&lang=en')">
+					
+						
+							general_progr...	
+						
+						
+					
+					<span class="ibm-access">(138)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f27-1">
+					
+					<a title="groovy 40" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=groovy&lang=en')">
+					
+						
+						
+							groovy	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f28-38">
+					
+					<a title="html 109" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=html&lang=en')">
+					
+						
+						
+							html	
+						
+					
+					<span class="ibm-access">(109)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f29-25">
+					
+					<a title="html5 77" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=html5&lang=en')">
+					
+						
+						
+							html5	
+						
+					
+					<span class="ibm-access">(77)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f30-11">
+					
+					<a title="integration 53" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=integration&lang=en')">
+					
+						
+						
+							integration	
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f31-8">
+					
+					<a title="interoperability 49" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=interoperability&lang=en')">
+					
+						
+							interoperabili...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f32-86">
+					
+					<a title="java 382" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=java&lang=en')">
+					
+						
+						
+							java	
+						
+					
+					<span class="ibm-access">(382)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f33-66">
+					
+					<a title="java_technology 230" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=java_technology&lang=en')">
+					
+						
+							java_technol...	
+						
+						
+					
+					<span class="ibm-access">(230)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f34-61">
+					
+					<a title="javascript 201" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=javascript&lang=en')">
+					
+						
+						
+							javascript	
+						
+					
+					<span class="ibm-access">(201)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f35-21">
+					
+					<a title="jquery 70" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=jquery&lang=en')">
+					
+						
+						
+							jquery	
+						
+					
+					<span class="ibm-access">(70)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f36-1">
+					
+					<a title="jsf 40" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=jsf&lang=en')">
+					
+						
+						
+							jsf	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f37-2">
+					
+					<a title="json 42" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=json&lang=en')">
+					
+						
+						
+							json	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f38-6">
+					
+					<a title="json_(javascript_object_notation) 46" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=json_%2528javascript_object_notation%2529&lang=en')">
+					
+						
+							json_(javascri...	
+						
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f39-85">
+					
+					<a title="linux 371" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=linux&lang=en')">
+					
+						
+						
+							linux	
+						
+					
+					<span class="ibm-access">(371)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f40-6">
+					
+					<a title="mashups 46" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mashups&lang=en')">
+					
+						
+						
+							mashups	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f41-24">
+					
+					<a title="messaging 74" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=messaging&lang=en')">
+					
+						
+						
+							messaging	
+						
+					
+					<span class="ibm-access">(74)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f42-13">
+					
+					<a title="mobile 56" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobile&lang=en')">
+					
+						
+						
+							mobile	
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f43-3">
+					
+					<a title="mobile_and_embedded_systems 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobile_and_embedded_systems&lang=en')">
+					
+						
+							mobile_and_emb...	
+						
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f44-1">
+					
+					<a title="mobility 41" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobility&lang=en')">
+					
+						
+						
+							mobility	
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f45-4">
+					
+					<a title="multimedia 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=multimedia&lang=en')">
+					
+						
+						
+							multimedia	
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f46-3">
+					
+					<a title="namespaces 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=namespaces&lang=en')">
+					
+						
+						
+							namespaces	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f47-78">
+					
+					<a title="open_source 313" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=open_source&lang=en')">
+					
+						
+						
+							open_source	
+						
+					
+					<span class="ibm-access">(313)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f48-10">
+					
+					<a title="parsing 51" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=parsing&lang=en')">
+					
+						
+						
+							parsing	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f49-7">
+					
+					<a title="patterns 48" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=patterns&lang=en')">
+					
+						
+						
+							patterns	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f50-39">
+					
+					<a title="performance 111" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=performance&lang=en')">
+					
+						
+						
+							performance	
+						
+					
+					<span class="ibm-access">(111)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f51-49">
+					
+					<a title="php 144" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=php&lang=en')">
+					
+						
+						
+							php	
+						
+					
+					<span class="ibm-access">(144)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f52-42">
+					
+					<a title="php_(hypertext_preprocessor) 121" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=php_%2528hypertext_preprocessor%2529&lang=en')">
+					
+						
+							php_(hypertex...	
+						
+						
+					
+					<span class="ibm-access">(121)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f53-10">
+					
+					<a title="programming 52" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=programming&lang=en')">
+					
+						
+						
+							programming	
+						
+					
+					<span class="ibm-access">(52)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f54-36">
+					
+					<a title="python 103" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=python&lang=en')">
+					
+						
+						
+							python	
+						
+					
+					<span class="ibm-access">(103)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f55-25">
+					
+					<a title="rest 76" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=rest&lang=en')">
+					
+						
+						
+							rest	
+						
+					
+					<span class="ibm-access">(76)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f56-1">
+					
+					<a title="rss_(really_simple_syndication) 41" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=rss_%2528really_simple_syndication%2529&lang=en')">
+					
+						
+							rss_(really_si...	
+						
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f57-4">
+					
+					<a title="ruby 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=ruby&lang=en')">
+					
+						
+						
+							ruby	
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f58-26">
+					
+					<a title="schemas 78" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=schemas&lang=en')">
+					
+						
+						
+							schemas	
+						
+					
+					<span class="ibm-access">(78)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f59-37">
+					
+					<a title="security 105" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=security&lang=en')">
+					
+						
+						
+							security	
+						
+					
+					<span class="ibm-access">(105)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f60-16">
+					
+					<a title="services 61" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=services&lang=en')">
+					
+						
+						
+							services	
+						
+					
+					<span class="ibm-access">(61)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f61-48">
+					
+					<a title="soa 141" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soa&lang=en')">
+					
+						
+						
+							soa	
+						
+					
+					<span class="ibm-access">(141)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f62-51">
+					
+					<a title="soa_(service-oriented_architecture) 155" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soa_%2528service-oriented_architecture%2529&lang=en')">
+					
+						
+							soa_(service-...	
+						
+						
+					
+					<span class="ibm-access">(155)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f63-35">
+					
+					<a title="soap_(simple_object_access_protocol) 99" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soap_%2528simple_object_access_protocol%2529&lang=en')">
+					
+						
+							soap_(simple_...	
+						
+						
+					
+					<span class="ibm-access">(99)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f64-17">
+					
+					<a title="spring 62" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=spring&lang=en')">
+					
+						
+						
+							spring	
+						
+					
+					<span class="ibm-access">(62)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f65-37">
+					
+					<a title="standards 106" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=standards&lang=en')">
+					
+						
+						
+							standards	
+						
+					
+					<span class="ibm-access">(106)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f66-17">
+					
+					<a title="standards_and_specifications 62" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=standards_and_specifications&lang=en')">
+					
+						
+							standards_and_...	
+						
+						
+					
+					<span class="ibm-access">(62)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f67-16">
+					
+					<a title="tips 60" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=tips&lang=en')">
+					
+						
+						
+							tips	
+						
+					
+					<span class="ibm-access">(60)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f68-50">
+					
+					<a title="web 151" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web&lang=en')">
+					
+						
+						
+							web	
+						
+					
+					<span class="ibm-access">(151)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f69-49">
+					
+					<a title="web_2.0 147" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_2.0&lang=en')">
+					
+						
+						
+							web_2.0	
+						
+					
+					<span class="ibm-access">(147)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f70-24">
+					
+					<a title="web_authoring 75" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_authoring&lang=en')">
+					
+						
+						
+							web_authoring	
+						
+					
+					<span class="ibm-access">(75)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f71-16">
+					
+					<a title="web_development 60" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_development&lang=en')">
+					
+						
+							web_developmen...	
+						
+						
+					
+					<span class="ibm-access">(60)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f72-76">
+					
+					<a title="web_services 293" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_services&lang=en')">
+					
+						
+						
+							web_services	
+						
+					
+					<span class="ibm-access">(293)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f73-15">
+					
+					<a title="websphere 59" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=websphere&lang=en')">
+					
+						
+						
+							websphere	
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f74-4">
+					
+					<a title="wsdl_(web_services_description_language) 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=wsdl_%2528web_services_description_language%2529&lang=en')">
+					
+						
+							wsdl_(web_serv...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f75-12">
+					
+					<a title="xhtml_(extensible_html) 55" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xhtml_%2528extensible_html%2529&lang=en')">
+					
+						
+							xhtml_(extensi...	
+						
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f76-92">
+					
+					<a title="xml 451" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xml&lang=en')">
+					
+						
+						
+							xml	
+						
+					
+					<span class="ibm-access">(451)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f77-14">
+					
+					<a title="xpath_(xml_path_language) 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xpath_%2528xml_path_language%2529&lang=en')">
+					
+						
+							xpath_(xml_pat...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f78-14">
+					
+					<a title="xquery_(xml_query_language) 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xquery_%2528xml_query_language%2529&lang=en')">
+					
+						
+							xquery_(xml_qu...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f79-10">
+					
+					<a title="xslt 51" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xslt&lang=en')">
+					
+						
+						
+							xslt	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f80-18">
+					
+					<a title="xslt_(xsl_transformations) 64" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xslt_%2528xsl_transformations%2529&lang=en')">
+					
+						
+							xslt_(xsl_tran...	
+						
+						
+					
+					<span class="ibm-access">(64)</span>					
+					</a>&nbsp;
+				</li>
+					
+			</ul><p>End of Popular tags</p><h2>My tags</h2><div id="dw-tag-access-my" class="ibm-access"><center>To access My Tags, please <a href="https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=auth&lang=en&d=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F">sign in</a><p>Read Popular tags</p></center><br></div><p>End of My tags</p></div>
+<div id="dw-tag-cloud">
+	<div id="dogearTagCloud">
+		<div id="content-slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%; "></a></div>
+		
+			
+						
+						
+						
+						
+						
+									
+			
+				<div id="ui-slider-scale"><p><span class="content-slider-more">More</span><span class="content-slider-less">Less</span></p></div>
+			
+		
+	    <div id="cloud-container">
+			<ul>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f1-71">
+					
+					<a title="ajax 257" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&lang=en')">
+					
+						
+						
+							ajax	
+						
+					
+					<span class="ibm-access">(257)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f2-14">
+					
+					<a title="and 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=and&lang=en')">
+					
+						
+						
+							and	
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f3-30">
+					
+					<a title="android 87" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=android&lang=en')">
+					
+						
+						
+							android	
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f4-14">
+					
+					<a title="apache 58" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=apache&lang=en')">
+					
+						
+						
+							apache	
+						
+					
+					<span class="ibm-access">(58)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f5-30">
+					
+					<a title="application_and_information_integration 88" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&lang=en')">
+					
+						
+							application_a...	
+						
+						
+					
+					<span class="ibm-access">(88)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f6-100">
+					
+					<a title="application_development 563" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&lang=en')">
+					
+						
+							application_...	
+						
+						
+					
+					<span class="ibm-access">(563)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f7-76">
+					
+					<a title="architecture 292" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&lang=en')">
+					
+						
+						
+							architecture	
+						
+					
+					<span class="ibm-access">(292)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f8-7">
+					
+					<a title="architecture_-_application 47" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&lang=en')">
+					
+						
+							architecture_-...	
+						
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f9-7">
+					
+					<a title="atom 47" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=atom&lang=en')">
+					
+						
+						
+							atom	
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f10-9">
+					
+					<a title="business_processes 50" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=business_processes&lang=en')">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(50)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f11-49">
+					
+					<a title="cloud 144" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=cloud&lang=en')">
+					
+						
+						
+							cloud	
+						
+					
+					<span class="ibm-access">(144)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f12-31">
+					
+					<a title="cloud_computing 90" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=cloud_computing&lang=en')">
+					
+						
+							cloud_computi...	
+						
+						
+					
+					<span class="ibm-access">(90)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f13-10">
+					
+					<a title="components 52" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=components&lang=en')">
+					
+						
+						
+							components	
+						
+					
+					<span class="ibm-access">(52)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f14-16">
+					
+					<a title="configuration_and_administration 61" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=configuration_and_administration&lang=en')">
+					
+						
+							configuration_...	
+						
+						
+					
+					<span class="ibm-access">(61)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f15-4">
+					
+					<a title="css_(cascading_style_sheets) 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=css_%2528cascading_style_sheets%2529&lang=en')">
+					
+						
+							css_(cascading...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f16-49">
+					
+					<a title="databases_and_data_management 145" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=databases_and_data_management&lang=en')">
+					
+						
+							databases_and...	
+						
+						
+					
+					<span class="ibm-access">(145)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f17-2">
+					
+					<a title="db2 42" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=db2&lang=en')">
+					
+						
+						
+							db2	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f18-8">
+					
+					<a title="design 49" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=design&lang=en')">
+					
+						
+						
+							design	
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f19-3">
+					
+					<a title="development 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=development&lang=en')">
+					
+						
+						
+							development	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f20-12">
+					
+					<a title="dojo 55" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=dojo&lang=en')">
+					
+						
+						
+							dojo	
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f21-11">
+					
+					<a title="dom_(document_object_model) 53" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=dom_%2528document_object_model%2529&lang=en')">
+					
+						
+							dom_(document_...	
+						
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f22-45">
+					
+					<a title="eclipse 131" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=eclipse&lang=en')">
+					
+						
+						
+							eclipse	
+						
+					
+					<span class="ibm-access">(131)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f23-3">
+					
+					<a title="editing 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=editing&lang=en')">
+					
+						
+						
+							editing	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f24-3">
+					
+					<a title="formatting 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=formatting&lang=en')">
+					
+						
+						
+							formatting	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f25-20">
+					
+					<a title="frameworks 68" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=frameworks&lang=en')">
+					
+						
+						
+							frameworks	
+						
+					
+					<span class="ibm-access">(68)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f26-47">
+					
+					<a title="general_programming 138" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=general_programming&lang=en')">
+					
+						
+							general_progr...	
+						
+						
+					
+					<span class="ibm-access">(138)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f27-1">
+					
+					<a title="groovy 40" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=groovy&lang=en')">
+					
+						
+						
+							groovy	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f28-38">
+					
+					<a title="html 109" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=html&lang=en')">
+					
+						
+						
+							html	
+						
+					
+					<span class="ibm-access">(109)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f29-25">
+					
+					<a title="html5 77" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=html5&lang=en')">
+					
+						
+						
+							html5	
+						
+					
+					<span class="ibm-access">(77)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f30-11">
+					
+					<a title="integration 53" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=integration&lang=en')">
+					
+						
+						
+							integration	
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f31-8">
+					
+					<a title="interoperability 49" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=interoperability&lang=en')">
+					
+						
+							interoperabili...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f32-86">
+					
+					<a title="java 382" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=java&lang=en')">
+					
+						
+						
+							java	
+						
+					
+					<span class="ibm-access">(382)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f33-66">
+					
+					<a title="java_technology 230" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=java_technology&lang=en')">
+					
+						
+							java_technol...	
+						
+						
+					
+					<span class="ibm-access">(230)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f34-61">
+					
+					<a title="javascript 201" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=javascript&lang=en')">
+					
+						
+						
+							javascript	
+						
+					
+					<span class="ibm-access">(201)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f35-21">
+					
+					<a title="jquery 70" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=jquery&lang=en')">
+					
+						
+						
+							jquery	
+						
+					
+					<span class="ibm-access">(70)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f36-1">
+					
+					<a title="jsf 40" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=jsf&lang=en')">
+					
+						
+						
+							jsf	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f37-2">
+					
+					<a title="json 42" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=json&lang=en')">
+					
+						
+						
+							json	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f38-6">
+					
+					<a title="json_(javascript_object_notation) 46" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=json_%2528javascript_object_notation%2529&lang=en')">
+					
+						
+							json_(javascri...	
+						
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f39-85">
+					
+					<a title="linux 371" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=linux&lang=en')">
+					
+						
+						
+							linux	
+						
+					
+					<span class="ibm-access">(371)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f40-6">
+					
+					<a title="mashups 46" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mashups&lang=en')">
+					
+						
+						
+							mashups	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f41-24">
+					
+					<a title="messaging 74" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=messaging&lang=en')">
+					
+						
+						
+							messaging	
+						
+					
+					<span class="ibm-access">(74)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f42-13">
+					
+					<a title="mobile 56" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobile&lang=en')">
+					
+						
+						
+							mobile	
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f43-3">
+					
+					<a title="mobile_and_embedded_systems 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobile_and_embedded_systems&lang=en')">
+					
+						
+							mobile_and_emb...	
+						
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f44-1">
+					
+					<a title="mobility 41" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=mobility&lang=en')">
+					
+						
+						
+							mobility	
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f45-4">
+					
+					<a title="multimedia 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=multimedia&lang=en')">
+					
+						
+						
+							multimedia	
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f46-3">
+					
+					<a title="namespaces 43" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=namespaces&lang=en')">
+					
+						
+						
+							namespaces	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f47-78">
+					
+					<a title="open_source 313" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=open_source&lang=en')">
+					
+						
+						
+							open_source	
+						
+					
+					<span class="ibm-access">(313)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f48-10">
+					
+					<a title="parsing 51" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=parsing&lang=en')">
+					
+						
+						
+							parsing	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f49-7">
+					
+					<a title="patterns 48" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=patterns&lang=en')">
+					
+						
+						
+							patterns	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f50-39">
+					
+					<a title="performance 111" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=performance&lang=en')">
+					
+						
+						
+							performance	
+						
+					
+					<span class="ibm-access">(111)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f51-49">
+					
+					<a title="php 144" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=php&lang=en')">
+					
+						
+						
+							php	
+						
+					
+					<span class="ibm-access">(144)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f52-42">
+					
+					<a title="php_(hypertext_preprocessor) 121" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=php_%2528hypertext_preprocessor%2529&lang=en')">
+					
+						
+							php_(hypertex...	
+						
+						
+					
+					<span class="ibm-access">(121)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f53-10">
+					
+					<a title="programming 52" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=programming&lang=en')">
+					
+						
+						
+							programming	
+						
+					
+					<span class="ibm-access">(52)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f54-36">
+					
+					<a title="python 103" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=python&lang=en')">
+					
+						
+						
+							python	
+						
+					
+					<span class="ibm-access">(103)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f55-25">
+					
+					<a title="rest 76" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=rest&lang=en')">
+					
+						
+						
+							rest	
+						
+					
+					<span class="ibm-access">(76)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f56-1">
+					
+					<a title="rss_(really_simple_syndication) 41" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=rss_%2528really_simple_syndication%2529&lang=en')">
+					
+						
+							rss_(really_si...	
+						
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f57-4">
+					
+					<a title="ruby 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=ruby&lang=en')">
+					
+						
+						
+							ruby	
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f58-26">
+					
+					<a title="schemas 78" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=schemas&lang=en')">
+					
+						
+						
+							schemas	
+						
+					
+					<span class="ibm-access">(78)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f59-37">
+					
+					<a title="security 105" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=security&lang=en')">
+					
+						
+						
+							security	
+						
+					
+					<span class="ibm-access">(105)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f60-16">
+					
+					<a title="services 61" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=services&lang=en')">
+					
+						
+						
+							services	
+						
+					
+					<span class="ibm-access">(61)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f61-48">
+					
+					<a title="soa 141" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soa&lang=en')">
+					
+						
+						
+							soa	
+						
+					
+					<span class="ibm-access">(141)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f62-51">
+					
+					<a title="soa_(service-oriented_architecture) 155" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soa_%2528service-oriented_architecture%2529&lang=en')">
+					
+						
+							soa_(service-...	
+						
+						
+					
+					<span class="ibm-access">(155)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f63-35">
+					
+					<a title="soap_(simple_object_access_protocol) 99" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=soap_%2528simple_object_access_protocol%2529&lang=en')">
+					
+						
+							soap_(simple_...	
+						
+						
+					
+					<span class="ibm-access">(99)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f64-17">
+					
+					<a title="spring 62" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=spring&lang=en')">
+					
+						
+						
+							spring	
+						
+					
+					<span class="ibm-access">(62)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f65-37">
+					
+					<a title="standards 106" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=standards&lang=en')">
+					
+						
+						
+							standards	
+						
+					
+					<span class="ibm-access">(106)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f66-17">
+					
+					<a title="standards_and_specifications 62" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=standards_and_specifications&lang=en')">
+					
+						
+							standards_and_...	
+						
+						
+					
+					<span class="ibm-access">(62)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f67-16">
+					
+					<a title="tips 60" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=tips&lang=en')">
+					
+						
+						
+							tips	
+						
+					
+					<span class="ibm-access">(60)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f68-50">
+					
+					<a title="web 151" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web&lang=en')">
+					
+						
+						
+							web	
+						
+					
+					<span class="ibm-access">(151)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f69-49">
+					
+					<a title="web_2.0 147" class="lotusF3 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_2.0&lang=en')">
+					
+						
+						
+							web_2.0	
+						
+					
+					<span class="ibm-access">(147)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f70-24">
+					
+					<a title="web_authoring 75" class="lotusF2 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_authoring&lang=en')">
+					
+						
+						
+							web_authoring	
+						
+					
+					<span class="ibm-access">(75)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f71-16">
+					
+					<a title="web_development 60" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_development&lang=en')">
+					
+						
+							web_developmen...	
+						
+						
+					
+					<span class="ibm-access">(60)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f72-76">
+					
+					<a title="web_services 293" class="lotusF4 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=web_services&lang=en')">
+					
+						
+						
+							web_services	
+						
+					
+					<span class="ibm-access">(293)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f73-15">
+					
+					<a title="websphere 59" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=websphere&lang=en')">
+					
+						
+						
+							websphere	
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f74-4">
+					
+					<a title="wsdl_(web_services_description_language) 44" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=wsdl_%2528web_services_description_language%2529&lang=en')">
+					
+						
+							wsdl_(web_serv...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f75-12">
+					
+					<a title="xhtml_(extensible_html) 55" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xhtml_%2528extensible_html%2529&lang=en')">
+					
+						
+							xhtml_(extensi...	
+						
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f76-92">
+					
+					<a title="xml 451" class="lotusF5 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xml&lang=en')">
+					
+						
+						
+							xml	
+						
+					
+					<span class="ibm-access">(451)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f77-14">
+					
+					<a title="xpath_(xml_path_language) 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xpath_%2528xml_path_language%2529&lang=en')">
+					
+						
+							xpath_(xml_pat...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f78-14">
+					
+					<a title="xquery_(xml_query_language) 57" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xquery_%2528xml_query_language%2529&lang=en')">
+					
+						
+							xquery_(xml_qu...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f79-10">
+					
+					<a title="xslt 51" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xslt&lang=en')">
+					
+						
+						
+							xslt	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f80-18">
+					
+					<a title="xslt_(xsl_transformations) 64" class="lotusF1 my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=xslt_%2528xsl_transformations%2529&lang=en')">
+					
+						
+							xslt_(xsl_tran...	
+						
+						
+					
+					<span class="ibm-access">(64)</span>					
+					</a>&nbsp;
+				</li>
+					
+			</ul>
+		</div>
+		
+			
+						
+						
+						
+						
+						
+			
+			
+				<div class="ibm-rule"><hr></div><p>View as <strong>cloud</strong>&nbsp;| <a id="alist" class="lotusAction" href="javascript:;">list</a></p>
+			
+		
+		</div> 
+
+		
+			
+			<div class="lotusChunk dw-hidetag" id="dogearTagList">
+			<div id="list-container">
+				<ul class="lotusList lotusEditable lotusTags lotusMeta">
+				
+					
+						
+			
+
+			
+				<li>				
+					<a title="ajax 257" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&lang=en')">
+						
+							
+							
+								ajax	
+							
+						
+					</a>
+					257
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="and 57" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=and&lang=en')">
+						
+							
+							
+								and	
+							
+						
+					</a>
+					57
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="android 87" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=android&lang=en')">
+						
+							
+							
+								android	
+							
+						
+					</a>
+					87
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="apache 58" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=apache&lang=en')">
+						
+							
+							
+								apache	
+							
+						
+					</a>
+					58
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="application_and_information_integration 88" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&lang=en')">
+						
+							
+								application_a...	
+							
+							
+						
+					</a>
+					88
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="application_development 563" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&lang=en')">
+						
+							
+								application_d...	
+							
+							
+						
+					</a>
+					563
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="architecture 292" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&lang=en')">
+						
+							
+							
+								architecture	
+							
+						
+					</a>
+					292
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="architecture_-_application 47" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&lang=en')">
+						
+							
+								architecture_...	
+							
+							
+						
+					</a>
+					47
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="atom 47" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=atom&lang=en')">
+						
+							
+							
+								atom	
+							
+						
+					</a>
+					47
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="business_processes 50" class="lotusLeft my" href="javascript:launchTagWindow('/developerworks/mydeveloperworks/bookmarks/html?tag=business_processes&lang=en')">
+						
+							
+								business_proc...	
+							
+							
+						
+					</a>
+					50
+				</li>
+				
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+				
+			</ul>
+			</div>
+			
+				
+							
+							
+							
+							
+							
+								
+				
+					<div class="ibm-rule"><hr></div><p>View as <a id="acloud" class="lotusAction" href="javascript:;">cloud</a>&nbsp;| <strong>list</strong></p>
+				
+			
+			</div></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-footer">
+<!-- IBM footer container; disabled -->
+</div>
+
+<div id="ibm-page-tools-dw">
+	<div id="dw-footer-top-row">
+		<ul id="dw-foot-options">
+			<li id="dw-print"><a class="ibm-print-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Print this page</a></li>
+		</ul>
+		<ul id="ibm-foot-options-dw">
+			<!-- <li id="ibm-share-dw"><a href="#">Share this page</a></li> -->
+			<!-- <li id="ibm-follow-dw"><a href="#">Follow developerWorks</a></li> -->
+			<li id="dw-foot-0"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Share this page</a></li>
+			<li id="dw-foot-1"><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Follow developerWorks</a></li>
+		</ul>
+	</div>
+
+	<!-- TOP ROW SLIDER -->
+    <div id="dw-page-tools-menu">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Share this page -->			
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-3-1">
+                        <h2>Share this page:</h2>                       
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-0-0" class="ibm-facebook-link" href="http://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F&t=An%20introduction%20to%20OMA%20Device%20Management">Facebook</a></li>
+							<li><a class="ibm-linkedin-link" href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F&title=An%20introduction%20to%20OMA%20Device%20Management">LinkedIn</a></li>
+							<li><a class="ibm-twitter-link" href="http://twitter.com/home?status=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F%20-%20An%20introduction%20to%20OMA%20Device%20Management">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-2">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-delicious-link" href="http://delicious.com/post?url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F&title=An%20introduction%20to%20OMA%20Device%20Management">Delicious</a></li>
+							<li><a class="ibm-digg-link" href="http://digg.com/submit?phase=2&url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F&title=An%20introduction%20to%20OMA%20Device%20Management">Digg</a></li>
+							<li><a class="ibm-stumbleupon" href="http://www.stumbleupon.com/submit?url=https%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fwireless%2Flibrary%2Fwi-oma%2F&title=An%20introduction%20to%20OMA%20Device%20Management">StumbleUpon</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-3">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-email-link" href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Email this page</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+                <!-- Follow developerWorks -->
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-1-1">
+                        <h2>Follow developerWorks:</h2>
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-1-0" class="ibm-facebook-link" href="http://www.facebook.com/developerworks">Facebook</a></li>
+							<li><a class="ibm-twitter-link" href="http://twitter.com/developerWorks">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/wireless/library/wi-oma/#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1"> 
+			<h2><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+				<li class="dw-footer-newline dw-footer-newline-en"><a href="http://www.ibm.com/developerworks/data/">Information<br> Management</a></li>
+				<li><a href="http://www.ibm.com/developerworks/lotus/">Lotus</a></li>
+				<li><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+				<li><a href="http://www.ibm.com/developerworks/tivoli/">Tivoli</a></li>
+				<li><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>
+			</ul>
+			<ul>
+				<li class="dw-footer-newgroup"><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+				<li><a href="http://www.ibm.com/developerworks/industry/">Industries</a></li>
+				<li class="dw-footer-newline dw-footer-newline-en"><a href="http://www.ibm.com/developerworks/servicemanagement/">Integrated Service<br> Management</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+				<li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+				<li><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+				<li><a href="http://www.ibm.com/developerworks/webservices/">SOA and web services</a></li>
+				<li><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>
+				<li><a href="http://www.ibm.com/developerworks/xml/">XML</a></li>
+			</ul>
+			<h2 class="dw-footer-more"><a href="http://www.ibm.com/developerworks/topics/">More...</a></h2>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<h2><a href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/downloads/product.html">By IBM product</a></li>
+				<li><a href="http://www.ibm.com/developerworks/downloads/evalmethod.html">By evaluation method</a></li>
+				<li><a href="http://www.ibm.com/developerworks/downloads/industry.html">By industry</a></li>
+			</ul>
+			<h2 class="dw-footer-newgroup"><a href="http://www.ibm.com/developerworks/events/">Events</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/briefings/">Briefings</a></li>
+				<li><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+				<li><a href="http://www.ibm.com/developerworks/find/events/">Find events</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4">
+			<h2><a href="http://www.ibm.com/developerworks/community/">Community</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/forums/">Forums</a></li>
+				<li><a href="http://www.ibm.com/developerworks/community/groups/">Groups</a></li>
+				<li><a href="http://www.ibm.com/developerworks/community/blogs/">Blogs</a></li>
+				<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/wikis/">Wikis</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/">Terms of use</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report/">Report abuse</a></li>
+			</ul>
+			<h2 class="dw-footer-more"><a href="http://www.ibm.com/developerworks/community/">More...</a></h2>
+		</div>
+		<div class="dw-footer-col-6-5">
+			<h2><a href="http://www.ibm.com/developerworks/aboutdw/">About developerWorks</a></h2>
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/feedback">Site help and feedback</a></li>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contacts</a></li>
+				<li><a href="https://www.ibm.com/developerworks/ideas">Article submissions</a></li>
+			</ul>
+			<h2 class="dw-footer-headonly dw-footer-newgroup">Related resources</h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/university/">Students and faculty</a></li>
+				<li><a href="http://www.ibm.com/isv/">Business partners</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<h2><a href="http://www.ibm.com/">IBM</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/solutions/">Solutions</a></li>
+				<li><a href="http://www.ibm.com/software/">Software</a></li>
+				<li><a href="http://www.ibm.com/software/sw-services/">Software services</a></li>
+				<li><a href="http://www.ibm.com/support/">Support</a></li>
+				<li><a href="http://www.ibm.com/support/publications/us/library/index.shtml">Product information</a></li>
+				<li><a href="http://www.ibm.com/redbooks/">Redbooks</a></li>
+				<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+				<li><a href="http://www.ibm.com/accessibility/">Accessibility</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	<noscript>
+	&lt;div id="dw-footer-selectlang"&gt;
+		&lt;h2&gt;&lt;a name="SELECTLANG"&gt;Select a language:&lt;/a&gt;&lt;/h2&gt;
+		&lt;ul&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/"&gt;English&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/cn/"&gt;中文&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/jp/"&gt;日本語&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/kr/"&gt;한국어&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ru/"&gt;Русско&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/br/"&gt;Português (Brasil)&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/ssa/"&gt;Español&lt;/a&gt;&lt;/li&gt;
+			&lt;li&gt;&lt;a href="http://www.ibm.com/developerworks/vn/"&gt;Việt&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+	</noscript>
+</div><!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+<div id="ibm-overlay-top"></div></div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/jquery.cluetip.js"></script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/ui.core-1.7.1.js"></script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/ui.slider-1.7.1.js"></script>
+<!-- xM Masthead/Footer -->
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/jquery.tools.min.js">//</script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/jquery.jscroll.js">//</script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/dw_v16.js">//</script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/flash-detect.js">//</script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/dwsi.js">//</script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/dwjquerytags.js"></script>
+<script type="text/javascript" language="JavaScript" src="./An introduction to OMA Device Management_files/showcomments.js">//</script>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ jQuery('threadShow').showComments('95%',5,'nCmts','icomments');
+// ]]>
+</script>
+
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});
+
+		//tagging
+		login="false";
+		userid="";
+		whichTags = "init";
+		pCont = "";
+		mCont = "";
+		signInMCont = "";
+		accessCont = "";
+		pValue = 0;
+		mValue = 0;
+
+		rBHash = null;
+		rBHash = new Object();
+		rBHash['viperLang'] = 'en';
+		rBHash['urlLang'] = 'en';
+		rBHash['tagThisWinTitle'] = 'Tagit';
+		rBHash['pTags1'] = 'Popular tags';
+		rBHash['pTags2'] = 'End of Popular tags';
+		rBHash['mTags1'] = 'My tags';
+		rBHash['mTags2'] = 'End of My tags';
+		rBHash['alt1'] = 'Loading Content';
+		rBHash['noATags'] = 'No active tags';
+		rBHash['signIn1'] = 'Please ';
+		rBHash['signIn2'] = 'sign in';
+		rBHash['signIn3'] = ' to access';
+		rBHash['signIn4'] = 'My Tags';
+		rBHash['signIn5'] = 'To access My Tags, please ';
+		rBHash['signIn6'] = 'sign in';
+		rBHash['signIn7'] = 'Read Popular tags';
+
+		zoneHash = new Object();
+		zoneHash['aix'] = 'AIX and UNIX zone';
+		zoneHash['data'] = 'Information Management zone';
+		zoneHash['lotus'] = 'Lotus zone';
+		zoneHash['rational'] = 'Rational zone';
+		zoneHash['tivoli'] = 'Tivoli zone';
+		zoneHash['websphere'] = 'WebSphere zone';
+		zoneHash['architecture'] = 'Technical library';
+		zoneHash['autonomic'] = 'Technical library';
+		zoneHash['java'] = 'Technical library';
+		zoneHash['cloud'] = 'Technical library';
+		zoneHash['industry'] = 'Technical library';
+		zoneHash['library'] = 'Technical library';
+		zoneHash['linux'] = 'Technical library';
+		zoneHash['opensource'] = 'Technical library';
+		zoneHash['power'] = 'Technical library';
+		zoneHash['webservices'] = 'Technical library';
+		zoneHash['web'] = 'Technical library';
+		zoneHash['xml'] = 'Technical library';
+		zoneHash['wireless'] = 'Technical library';
+		jQuery.checkRB();
+		jQuery.getPopularTags("/developerworks/dwtags/dwjquerytabtags?lang=" + rBHash['viperLang'] + "&base=" + jQuery.getNormalizedZoneUrl(location.href));
+		jQuery.getUserTags();
+		if(jQuery.isTutorial(location.href) == "true") {
+			jQuery.getTagsForContent("/developerworks/tagging/UseCaseServlet?lang=" + rBHash['viperLang'] + "&format=maverick&cType=tutorials&use_case=geturltags&action=gettags&url=" + jQuery.normalizeUrl(location.href));
+		}
+		else {
+			jQuery.getTagsForContent("/developerworks/tagging/UseCaseServlet?lang=" + rBHash['viperLang'] + "&format=maverick&cType=articles&use_case=geturltags&action=gettags&url=" + jQuery.normalizeUrl(location.href));
+
+		}
+		
+		// si
+		initSI();
+	});
+ </script>
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+<script language="JavaScript" src="./An introduction to OMA Device Management_files/overlay.js" type="text/javascript"></script>
+<!-- My dW Interest article -->
+<script language="JavaScript" src="./An introduction to OMA Device Management_files/showinterest.js" type="text/javascript">//</script>
+<script language="JavaScript" type="text/javascript">
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '171858';
+			contentAreas = 'architecture,websphere';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</script><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=2&ibmAdoptPhase=-&ibmRole=-";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+<script src="./An introduction to OMA Device Management_files/stats.js" type="text/javascript">//</script>
+</div>
+
+
+<div id="cluetip-waitimage" style="position: absolute; z-index: 95; display: none; "></div><div id="cluetip" style="display: none; position: absolute; z-index: 96; "><div style="z-index: 95; opacity: 0.1; top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 0); "></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; position: absolute; background-color: rgb(0, 0, 0); "></div><div style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: absolute; background-color: rgb(0, 0, 0); "></div><div style="z-index: 92; opacity: 0.1; top: 4px; left: 4px; position: absolute; background-color: rgb(0, 0, 0); "></div><div style="z-index: 91; opacity: 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 0, 0); "></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 6px; position: absolute; background-color: rgb(0, 0, 0); "></div><div id="cluetip-outer" style="position: relative; z-index: 97; "><h3 id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div id="cluetip-extra"></div><div id="cluetip-arrows" class="cluetip-arrows" style="z-index: 97; "></div></div></body></html>

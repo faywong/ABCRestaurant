@@ -1,0 +1,26 @@
+目前实现了的功能有：
+1 通过网络获取配置问题（菜品信息，分类信息，以及各自图片）
+2 能够提交订单，并反映到数据库中，提供了简单的管理页面，供管理者查询当前经营信息
+
+下一步需要实现的功能：
+1 服务端推送系统（这是两种client即消费者和厨师之间和server之间交互的核心依赖）
+2 厨师版本还未完成
+
+
+谢谢大家！
+
+
+备忘：
+
+服务端如何清除历史信息：
+修改androidpn-server-0.5.0/bin/db/androidpn.script
+
+request URL example:
+1) http://localhost:7070/notification.do?action=send&broadcast=Y&title=wangfei&message=wangfeitest&uri=null
+2) http://localhost:7070/notification.do?action=send&user=10.0.2.15.abcrestaurant.com&title=private&message=wangfeitest&uri=null
+3) androidpn对于beans的配置文件位于/console/src/main/webapp/WEB-INF/dispatcher-servlet.xml
+   里边定义了很多对象，用于处理URLMAPPING， 还有处理各个页面的Handler对象
+
+
+订单金额这块还有个bug，后续修正。目前是把服务端推送消息这块问题解决了。后续要开发厨师用的界面。
+谢谢大家！

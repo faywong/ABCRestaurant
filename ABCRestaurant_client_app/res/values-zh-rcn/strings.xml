@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ABCRestaurant</string>
+    <string name="course">菜名</string>
+    <string name="price">价格</string>
+    <string name="TotalPriceLabel">总价:</string>
+    <string name="order_item_del_label">删除</string>
+    <string name="order_item_add_label">添加</string>
+    <string name="confirm_btn_label">确认</string>
+    <string name="cancel_btn_label">放弃</string>
+    <string name="order_last_confirm">亲，最后改变主意的机会!</string>
+    <string name="order_success_msg">下单生效!</string>
+    <string name="ordernoting_promt">请选中若干菜品之后下单! </string>
+    <string name="incNo_label">+</string>
+    <string name="decNo_label">-</string>
+    <string name="course_no_label">数量</string>
+    <string name="OrderID">订单编号</string>
+    <string name="CommitTime">CommitTime</string>
+    <string name="PendingItems">PendingItems</string>
+    <string name="TestCourseName">ChuanCai</string>
+    <string name="PendingLabel">Pending</string>
+    <string name="ActiveLabel">Active</string>
+    <string name="CompletedLabel">Completed</string>
+    <string name="DefaultCourseID">暂无</string>
+    <string name="CookerPanelFinishLabel">完成</string>
+    <string name="CookerPanelStartLabel">开始</string>
+    <string name="CoursePreparingLabel">您的菜品正在被烹饪,请稍候...</string>
+    <string name="CoursePreparingMsgPrefixLabel">编号:</string>
+    <string name="order_history_noting_promt">无有效历史订单</string>
+    <string name="showorderhistory_activity_name">有效历史订单</string>
+    <string name="showorder_activity_name">订单详情</string>
+    <string name="main_app_name">ABC餐厅</string>
+    <string name="savebtn_label">保存</string>
+    <string name="ip_addr_label">服务器名：</string>
+    <string name="setting_activity_name">ABCRestaurant设置</string>
+    <string name="setting_saved_prompt">您的设置已保存！</string>
+    <string name="serverhost_setting_hint">请输入服务器名</string>
+</resources>

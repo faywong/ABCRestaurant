@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_app_name">ABCRestaurant</string>
+    <string name="course">Course</string>
+    <string name="price">Price</string>
+    <string name="TotalPriceLabel">TotalPrice:</string>
+    <string name="order_item_del_label">Del</string>
+    <string name="order_item_add_label">Add</string>
+    <string name="confirm_btn_label">Confirm</string>
+    <string name="cancel_btn_label">Cancel</string>
+    <string name="order_last_confirm">Last Time to Change!</string>
+    <string name="order_success_msg">Order Success!</string>
+    <string name="ordernoting_promt">You have orderred nothing, Please reselect! </string>
+    <string name="incNo_label">+</string>
+    <string name="decNo_label">-</string>
+    <string name="course_no_label">NO.</string>
+    <string name="OrderID">OrderID</string>
+    <string name="CommitTime">CommitTime</string>
+    <string name="PendingItems">PendingItems</string>
+    <string name="TestCourseName">ChuanCai</string>
+    <string name="PendingLabel">Pending</string>
+    <string name="ActiveLabel">Active</string>
+    <string name="CompletedLabel">Completed</string>
+    <string name="DefaultCourseID">NotAvailable</string>
+    <string name="CookerPanelStartLabel">Start</string>
+    <string name="CookerPanelFinishLabel">Complete</string>
+    <string name="TestCourseID">007</string>
+    <string name="CoursePreparingLabel">Your course is being prepared#8230;</string>
+    <string name="CoursePreparingMsgPrefixLabel">ID:</string>
+    <string name="order_history_noting_promt">You have orderred nothing, no history exists! </string>
+    <string name="showorderhistory_activity_name">showOrderHistory</string>
+    <string name="showorder_activity_name">showOrderActivity</string>
+    <string name="savebtn_label">Save</string>
+    <string name="ip_addr_label">Server Host:</string>
+    <string name="setting_activity_name">ABCRestaurantSetting</string>
+    <string name="setting_saved_prompt">Your setting has been saved!</string>
+    <string name="serverhost_setting_hint">Your server host here</string>
+</resources>
