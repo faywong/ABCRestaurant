@@ -99,7 +99,7 @@ public class NotificationService extends Service {
         // If running on an emulator
         if (deviceId == null || deviceId.trim().length() == 0
                 || deviceId.matches("0+")) {
-            if (sharedPrefs.contains("EMULATOR_DEVICE_ID")) {
+            if (sharedPrefs.contains(Constants.EMULATOR_DEVICE_ID)) {
                 deviceId = sharedPrefs.getString(Constants.EMULATOR_DEVICE_ID,
                         "");
             } else {
@@ -110,7 +110,7 @@ public class NotificationService extends Service {
                 editor.commit();
             }
         }
-        Log.d(LOGTAG, "deviceId=" + deviceId);
+        Log.d(LOGTAG, "DeviceId=" + deviceId);
 
         xmppManager = new XmppManager(this);
 

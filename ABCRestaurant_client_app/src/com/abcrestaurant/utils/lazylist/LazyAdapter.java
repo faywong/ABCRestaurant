@@ -1,6 +1,6 @@
 package com.abcrestaurant.utils.lazylist;
 
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 
 import android.app.Activity;
 import android.content.Context;

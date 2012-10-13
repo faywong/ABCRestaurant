@@ -4,7 +4,7 @@ import com.abcrestaurant.common.ABCLogSet;
 import com.abcrestaurant.common.CourseCollector;
 import com.abcrestaurant.common.CourseInfo;
 import com.abcrestaurant.common.NetworkHelper;
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 import com.abcrestaurant.network.NetworkTaskHandler;
 import java.util.ArrayList;
 import java.util.List;

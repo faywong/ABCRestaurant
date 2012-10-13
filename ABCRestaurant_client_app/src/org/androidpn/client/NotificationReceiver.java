@@ -21,7 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
+import com.abcrestaurant.client.R;
 /**
  * Broadcast receiver that handles push notification messages from the server.
  * This should be registered as receiver in AndroidManifest.xml.
@@ -66,8 +66,8 @@ public final class NotificationReceiver extends BroadcastReceiver {
             Log.d(LOGTAG, "notificationMessage=" + notificationMessage);
             Log.d(LOGTAG, "notificationUri=" + notificationUri);
             if (notificationTitle.equals(ABCConfig.PUSH_COURSE_TO_COOKER_TITLE)) {
-            	notificationTitle = context.getResources().getString(com.abcrestaurant.R.string.CoursePreparingLabel);
-            	String msgPrefix = context.getResources().getString(com.abcrestaurant.R.string.CoursePreparingMsgPrefixLabel);
+            	notificationTitle = context.getResources().getString(R.string.CoursePreparingLabel);
+            	String msgPrefix = context.getResources().getString(R.string.CoursePreparingMsgPrefixLabel);
 				Intent cookIntent = new Intent(ABCConfig.SHOW_COOKER_PANEL_ACTION);
 				String[] ids = notificationMessage.split("\\.");
 				if (ids.length == 2) {

@@ -1,0 +1,3 @@
+>>>>>>2012/10/14
+1 replace default icon when loading all course images
+2 xmpp authorize/login problem

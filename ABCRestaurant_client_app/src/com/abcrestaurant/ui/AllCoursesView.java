@@ -41,7 +41,7 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 import com.abcrestaurant.common.ABCConfig;
 import com.abcrestaurant.common.ABCLogSet;
 import com.abcrestaurant.common.Category;

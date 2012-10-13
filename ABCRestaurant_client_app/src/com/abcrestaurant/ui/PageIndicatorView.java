@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 import com.abcrestaurant.ui.ScrollLayout.OnScreenChangeListener;
 import android.util.Log;
 

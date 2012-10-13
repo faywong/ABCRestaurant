@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.androidpn.client.ServiceManager;
 
-import com.abcrestaurant.R;
-import com.abcrestaurant.R.drawable;
-import com.abcrestaurant.R.id;
-import com.abcrestaurant.R.layout;
-import com.abcrestaurant.R.string;
+import com.abcrestaurant.client.R;
+import com.abcrestaurant.client.R.drawable;
+import com.abcrestaurant.client.R.id;
+import com.abcrestaurant.client.R.layout;
+import com.abcrestaurant.client.R.string;
 import com.abcrestaurant.common.ABCConfig;
 import com.abcrestaurant.common.ABCLogSet;
 import com.abcrestaurant.common.Category;
@@ -80,17 +80,17 @@ public class MainActivity extends Activity implements
 			Log.e(ABCLogSet.MAIN_TAG, "onCreate() in");
 		}
 		super.onCreate(savedInstanceState);
+		// Start the Notification service first, because is async and so important
+		ServiceManager serviceManager = new ServiceManager(this);
+		serviceManager.setNotificationIcon(R.drawable.notification);
+		serviceManager.startService();
+		// Check some user settings(Server Host name) second
 		checkSettings();
 		setContentView(R.layout.mainlayout);
 		mDragController = new DragController(this);
 		getLayoutInflater();
 		CourseCollector.instance().setHandler(mHandler);
 		setupViews();
-
-		// Start the Notification service
-		ServiceManager serviceManager = new ServiceManager(this);
-		serviceManager.setNotificationIcon(R.drawable.notification);
-		serviceManager.startService();
 	}
 	
 	@Override
@@ -104,7 +104,6 @@ public class MainActivity extends Activity implements
 		}
 		
 		if (ABCConfig.needRetrieveMetaData()) {
-
 			Log.e(TAG, "Before retrieveCursesInfo()");
 			CourseCollector.instance().retrieveCursesInfo();
 			Log.e(TAG, "retrieveCursesInfo() Over");

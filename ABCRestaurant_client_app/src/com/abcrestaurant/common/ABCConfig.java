@@ -22,8 +22,11 @@ public class ABCConfig {
 
     public static final String SHOW_ORDER_INTENT_ACTION = "android.intent.action.SHOW_ORDER";
     public static final String SHOW_ORDER_HISTORY_INTENT_ACTION = "android.intent.action.SHOW_ORDER_HISTORY";
-    public static final String IP_ADDR_SETTING_PREFS_KEY = "ABC_SERVER_NAME";
+    public static final String IP_ADDR_SETTING_PREFS_KEY = "abcrestaurant_server_name";
     public static final String InvalidServerHostName = "255.255.255.255";
+    public static final String AndroidTruststorePath = "/system/etc/security/cacerts.bks";
+    public static final String AndroidTruststorePassword = "changeit";
+    public static final String AndroidTruststoreType = "bks";
 //    private static String mServerHostName = "192.168.1.133";
     private static String mServerHostName = InvalidServerHostName;
 
@@ -55,6 +58,7 @@ public class ABCConfig {
 	}
 
 	public static boolean isServerHostValid(String hostName) {
+		//TODO: Need prefix suffix check
 		if (null == hostName) {
 			return (!InvalidServerHostName.equals(mServerHostName));
 		}

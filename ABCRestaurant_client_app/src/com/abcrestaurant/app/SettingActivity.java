@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 import com.abcrestaurant.common.ABCConfig;
 
 public class SettingActivity extends Activity {

@@ -22,7 +22,7 @@ package org.androidpn.client;
  */
 public class Constants {
 
-    public static final String SHARED_PREFERENCE_NAME = "client_preferences";
+    public static final String SHARED_PREFERENCE_NAME = "androidpn_client_preferences";
 
     // PREFERENCE KEYS
 

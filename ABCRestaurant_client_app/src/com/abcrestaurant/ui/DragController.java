@@ -31,7 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 
-import com.abcrestaurant.R;
+import com.abcrestaurant.client.R;
 import com.abcrestaurant.common.ABCLogSet;
 
 /**
