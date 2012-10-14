@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: wangfei
+Build-Jdk: 1.7.0_07
+Package: starter
+Implementation-Title: starter
+Implementation-Version: 0.5.0
+Implementation-Vendor-Id: org.androidpn
+Main-Class: org.androidpn.server.starter.ServerStarter
+Created-By: Maven Integration for Eclipse
+
